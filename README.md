@@ -1,5 +1,6 @@
 # OpenSimplexTerrain
 [![](https://jitpack.io/v/MarcoCiaramella/OpenSimplexTerrain.svg)](https://jitpack.io/#MarcoCiaramella/OpenSimplexTerrain)
+
 A 3D terrain generator in Android based on OpenSimplex Noise.
 
 ## How to import in your Android project
