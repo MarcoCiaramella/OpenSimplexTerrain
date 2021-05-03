@@ -23,13 +23,13 @@ dependencies {
 
 ## How to use
 ```java
-Map3D.Params params = new Map3D.Params();
+OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
 params.width = 512;
 params.height = 512;
 params.seed = 1234;
 params.oct1 = 1.0f;
 params.exp = 4.0;
-Map3D map3D = new Map3D();
+OpenSimplexTerrain map3D = new OpenSimplexTerrain();
 map3D.create(params);
 float[] vertices = map3D.getVertices();
 int[] indices = map3D.getIndices();
