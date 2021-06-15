@@ -1,14 +1,12 @@
 package com.outofbound.opensimplexterrainlib;
 
 
-import com.jnoise.opensimplexnoise.OpenSimplexNoise;
-
+import com.jnoise.opensimplexnoiselib.OpenSimplex2F;
 
 public class OpenSimplexTerrain {
 
     private Vertex[] vertices;
     private float[] verticesArr;
-    private Triangle[] triangles;
     private Normal[] normals;
     private float[] normalsArr;
     private int[] indicesArr;
@@ -19,7 +17,7 @@ public class OpenSimplexTerrain {
     private double[] noiseVal8;
     private double[] noiseVal16;
     private double[] noiseVal32;
-    private OpenSimplexNoise noise;
+    private OpenSimplex2F openSimplex2F;
 
     public static class Params{
 
@@ -71,7 +69,7 @@ public class OpenSimplexTerrain {
 
     public OpenSimplexTerrain(){
         params = null;
-        noise = null;
+        openSimplex2F = null;
     }
 
     public void create(Params params){
@@ -150,10 +148,8 @@ public class OpenSimplexTerrain {
     }
 
     private void initTriangles(){
-        triangles = new Triangle[(params.width-1)*(params.height-1)*2];
-        indicesArr = new int[triangles.length*6];
+        indicesArr = new int[(params.width - 1) * (params.height - 1) * 2 *6];
         int w = params.width;
-        int p = 0;
         int r = 0;
         for (int j = 0; j < params.height-1; j++) {
             for (int i = 0; i < params.width-1; i++) {
@@ -172,8 +168,6 @@ public class OpenSimplexTerrain {
                 t2.v1 = vertices[t2v1i];
                 t2.v2 = vertices[t2v2i];
                 t2.v3 = vertices[t2v3i];
-                triangles[p++] = t1;
-                triangles[p++] = t2;
                 indicesArr[r++] = t1v1i;
                 indicesArr[r++] = t1v2i;
                 indicesArr[r++] = t1v3i;
@@ -221,7 +215,7 @@ public class OpenSimplexTerrain {
     }
 
     private void initNoise(){
-        noise = new OpenSimplexNoise(params.seed);
+        openSimplex2F = new OpenSimplex2F();
         initNoise1();
         initNoise2();
         initNoise4();
