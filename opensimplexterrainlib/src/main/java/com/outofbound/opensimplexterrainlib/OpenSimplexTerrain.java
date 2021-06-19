@@ -225,45 +225,27 @@ public class OpenSimplexTerrain {
     }
 
     private void initNoise1(){
-        noiseVal1 = new double[params.width*params.height];
-        for (int i = 0; i < vertices.length; i++){
-            noiseVal1[i] = noise.eval(1 * vertices[i].x*5, 1 * vertices[i].y*5);
-        }
+        noiseVal1 = openSimplex2F.noise2(params.seed, params.width, params.height, 0, 0, 1.0);
     }
 
     private void initNoise2(){
-        noiseVal2 = new double[params.width*params.height];
-        for (int i = 0; i < vertices.length; i++){
-            noiseVal2[i] = noise.eval(2 * vertices[i].x*5, 2 * vertices[i].y*5);
-        }
+        noiseVal2 = openSimplex2F.noise2(params.seed, params.width, params.height, 0, 0, 1.0/2.0);
     }
 
     private void initNoise4(){
-        noiseVal4 = new double[params.width*params.height];
-        for (int i = 0; i < vertices.length; i++){
-            noiseVal4[i] = noise.eval(4 * vertices[i].x*5, 4 * vertices[i].y*5);
-        }
+        noiseVal4 = openSimplex2F.noise2(params.seed, params.width, params.height, 0, 0, 1.0/4.0);
     }
 
     private void initNoise8(){
-        noiseVal8 = new double[params.width*params.height];
-        for (int i = 0; i < vertices.length; i++){
-            noiseVal8[i] = noise.eval(8 * vertices[i].x*5, 8 * vertices[i].y*5);
-        }
+        noiseVal8 = openSimplex2F.noise2(params.seed, params.width, params.height, 0, 0, 1.0/8.0);
     }
 
     private void initNoise16(){
-        noiseVal16 = new double[params.width*params.height];
-        for (int i = 0; i < vertices.length; i++){
-            noiseVal16[i] = noise.eval(16 * vertices[i].x*5, 16 * vertices[i].y*5);
-        }
+        noiseVal16 = openSimplex2F.noise2(params.seed, params.width, params.height, 0, 0, 1.0/16.0);
     }
 
     private void initNoise32(){
-        noiseVal32 = new double[params.width*params.height];
-        for (int i = 0; i < vertices.length; i++){
-            noiseVal32[i] = noise.eval(32 * vertices[i].x*5, 32 * vertices[i].y*5);
-        }
+        noiseVal32 = openSimplex2F.noise2(params.seed, params.width, params.height, 0, 0, 1.0/32.0);
     }
 
     private void onSeedChange(){
