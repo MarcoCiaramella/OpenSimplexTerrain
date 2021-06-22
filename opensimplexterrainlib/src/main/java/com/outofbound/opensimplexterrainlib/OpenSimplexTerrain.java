@@ -23,8 +23,7 @@ public class OpenSimplexTerrain {
 
         private static final int PLANE = 1;
         private static final int SPHERE = 2;
-        public int width = 0;
-        public int height = 0;
+        public int size = 0;
         public long seed = 0;
         public float oct1 = 0;
         public float oct2 = 0;
@@ -37,8 +36,7 @@ public class OpenSimplexTerrain {
         private int type = PLANE;
 
         public void copy(Params params){
-            width = params.width;
-            height = params.height;
+            size = params.size;
             seed = params.seed;
             oct1 = params.oct1;
             oct2 = params.oct2;
@@ -52,8 +50,7 @@ public class OpenSimplexTerrain {
         }
 
         public boolean equals(Params params){
-            return this.width == params.width &&
-                    this.height == params.height &&
+            return this.size == params.size &&
                     this.seed == params.seed &&
                     this.oct1 == params.oct1 &&
                     this.oct2 == params.oct2 &&
@@ -116,7 +113,7 @@ public class OpenSimplexTerrain {
             if (this.params.res != oldParams.res){
                 onResChange();
             }
-            if (this.params.width != oldParams.width || this.params.height != oldParams.height){
+            if (this.params.size != oldParams.size){
                 onWidthHeightChange();
             }
             if (this.params.type != oldParams.type){
@@ -130,13 +127,13 @@ public class OpenSimplexTerrain {
     }
 
     private void initVertices(){
-        vertices = new Vertex[params.width*params.height];
+        vertices = new Vertex[params.size*params.size];
         verticesArr = new float[vertices.length*3];
         int i = 0;
-        for (int y = 0; y < params.height; y++) {
-            for (int x = 0; x < params.width; x++) {
-                float x01 = x/(float)params.width;
-                float y01 = y/(float)params.height;
+        for (int y = 0; y < params.size; y++) {
+            for (int x = 0; x < params.size; x++) {
+                float x01 = x/(float)params.size;
+                float y01 = y/(float)params.size;
                 x01 = ((int)(x01*params.res)) / params.res;
                 y01 = ((int)(y01*params.res)) / params.res;
                 vertices[i++] = new Vertex(x01-0.5f,y01-0.5f,0);
@@ -148,11 +145,11 @@ public class OpenSimplexTerrain {
     }
 
     private void initTriangles(){
-        indicesArr = new int[(params.width - 1) * (params.height - 1) * 2 *6];
-        int w = params.width;
+        indicesArr = new int[(params.size - 1) * (params.size - 1) * 2 *6];
+        int w = params.size;
         int r = 0;
-        for (int j = 0; j < params.height-1; j++) {
-            for (int i = 0; i < params.width-1; i++) {
+        for (int j = 0; j < params.size-1; j++) {
+            for (int i = 0; i < params.size-1; i++) {
                 int q = j*w + i;
                 int t1v1i = q + 1;
                 int t1v2i = w + q;
@@ -185,7 +182,7 @@ public class OpenSimplexTerrain {
     }
 
     private void initNormals(){
-        normals = new Normal[params.width*params.height];
+        normals = new Normal[params.size*params.size];
         normalsArr = new float[normals.length*3];
         for (int i = 0; i < normals.length; i++){
             normals[i] = new Normal();
@@ -225,27 +222,27 @@ public class OpenSimplexTerrain {
     }
 
     private void initNoise1(){
-        noiseVal1 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/64.0);
+        noiseVal1 = openSimplex2F.noise2(params.size, params.size, 0, 0, 1.0/params.size);
     }
 
     private void initNoise2(){
-        noiseVal2 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/32.0);
+        noiseVal2 = openSimplex2F.noise2(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
     }
 
     private void initNoise4(){
-        noiseVal4 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/16.0);
+        noiseVal4 = openSimplex2F.noise2(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
     }
 
     private void initNoise8(){
-        noiseVal8 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/8.0);
+        noiseVal8 = openSimplex2F.noise2(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
     }
 
     private void initNoise16(){
-        noiseVal16 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/4.0);
+        noiseVal16 = openSimplex2F.noise2(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
     }
 
     private void initNoise32(){
-        noiseVal32 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/2.0);
+        noiseVal32 = openSimplex2F.noise2(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
     }
 
     private void onSeedChange(){
