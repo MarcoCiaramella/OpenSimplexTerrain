@@ -225,15 +225,15 @@ public class OpenSimplexTerrain {
     }
 
     private void initNoise1(){
-        noiseVal1 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0);
+        noiseVal1 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/64.0);
     }
 
     private void initNoise2(){
-        noiseVal2 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/2.0);
+        noiseVal2 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/32.0);
     }
 
     private void initNoise4(){
-        noiseVal4 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/4.0);
+        noiseVal4 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/16.0);
     }
 
     private void initNoise8(){
@@ -241,11 +241,11 @@ public class OpenSimplexTerrain {
     }
 
     private void initNoise16(){
-        noiseVal16 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/16.0);
+        noiseVal16 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/4.0);
     }
 
     private void initNoise32(){
-        noiseVal32 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/32.0);
+        noiseVal32 = openSimplex2F.noise2(params.width, params.height, 0, 0, 1.0/2.0);
     }
 
     private void onSeedChange(){
