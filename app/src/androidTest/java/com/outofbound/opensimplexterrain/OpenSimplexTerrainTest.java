@@ -30,8 +30,8 @@ public class OpenSimplexTerrainTest {
     @Test
     public void testVertices(){
         OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-        params.width = 64;
-        params.height = 64;
+        params.width = 512;
+        params.height = 512;
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
