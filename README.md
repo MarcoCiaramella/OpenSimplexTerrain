@@ -26,8 +26,7 @@ dependencies {
 ## How to use
 ```java
 OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-params.width = 512;
-params.height = 512;
+params.size = 512;
 params.seed = 1234;
 params.oct1 = 1.0f;
 params.exp = 4.0;
