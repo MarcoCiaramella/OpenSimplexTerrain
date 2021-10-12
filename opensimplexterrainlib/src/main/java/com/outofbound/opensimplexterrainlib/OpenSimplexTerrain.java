@@ -5,6 +5,12 @@ import com.jnoise.opensimplexnoiselib.OpenSimplex2F;
 
 public class OpenSimplexTerrain {
 
+    private double[] grid1;
+    private double[] grid2;
+    private double[] grid4;
+    private double[] grid8;
+    private double[] grid16;
+    private double[] grid32;
     private Vertex[] vertices;
     private float[] verticesArr;
     private Normal[] normals;
@@ -19,7 +25,7 @@ public class OpenSimplexTerrain {
     private double[] noiseVal32;
     private OpenSimplex2F openSimplex2F;
 
-    public static class Params{
+    public static class Params {
 
         private static final int PLANE = 1;
         private static final int SPHERE = 2;
@@ -73,6 +79,7 @@ public class OpenSimplexTerrain {
         if (this.params == null) {
             this.params = new Params();
             this.params.copy(params);
+            initGrids();
             initVertices();
             initNoise();
             calcNoise();
@@ -124,6 +131,29 @@ public class OpenSimplexTerrain {
             toArray(vertices);
             toArray(normals);
         }
+    }
+
+    private double[] points(int width, int height, int offX, int offY, double freq){
+        double[] points = new double[width*height*2];
+        int i = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                double xd = (x + offX) * freq;
+                double yd = (y + offY) * freq;
+                points[i++] = xd;
+                points[i++] = yd;
+            }
+        }
+        return points;
+    }
+
+    private void initGrids(){
+        grid1 = points(params.size, params.size, 0, 0, 1.0/params.size);
+        grid2 = points(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
+        grid4 = points(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
+        grid8 = points(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
+        grid16 = points(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
+        grid32 = points(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
     }
 
     private void initVertices(){
@@ -222,27 +252,27 @@ public class OpenSimplexTerrain {
     }
 
     private void initNoise1(){
-        noiseVal1 = openSimplex2F.noise2(params.size, params.size, 0, 0, 1.0/params.size);
+        noiseVal1 = openSimplex2F.noise2(grid1, grid1.length/2);
     }
 
     private void initNoise2(){
-        noiseVal2 = openSimplex2F.noise2(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
+        noiseVal2 = openSimplex2F.noise2(grid2, grid2.length/2);
     }
 
     private void initNoise4(){
-        noiseVal4 = openSimplex2F.noise2(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
+        noiseVal4 = openSimplex2F.noise2(grid4, grid4.length/2);
     }
 
     private void initNoise8(){
-        noiseVal8 = openSimplex2F.noise2(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
+        noiseVal8 = openSimplex2F.noise2(grid8, grid8.length/2);
     }
 
     private void initNoise16(){
-        noiseVal16 = openSimplex2F.noise2(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
+        noiseVal16 = openSimplex2F.noise2(grid16, grid16.length/2);
     }
 
     private void initNoise32(){
-        noiseVal32 = openSimplex2F.noise2(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
+        noiseVal32 = openSimplex2F.noise2(grid32, grid32.length/2);
     }
 
     private void onSeedChange(){
@@ -250,6 +280,7 @@ public class OpenSimplexTerrain {
     }
 
     private void onWidthHeightChange(){
+        initGrids();
         initVertices();
         initNoise();
         initNormals();
