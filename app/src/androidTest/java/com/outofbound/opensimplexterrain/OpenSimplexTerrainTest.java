@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.outofbound.opensimplexterrainlib.OpenSimplexTerrain;
+import com.outofbound.opensimplexterrainlib.OpenSimplexPlane;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,12 +35,12 @@ public class OpenSimplexTerrainTest {
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
-        OpenSimplexTerrain openSimplexTerrain = new OpenSimplexTerrain();
-        openSimplexTerrain.create(params);
-        for (int i = 0; i < openSimplexTerrain.getVertices().length; i += 3){
-            assertTrue(""+openSimplexTerrain.getVertices()[i],openSimplexTerrain.getVertices()[i] >= -0.5 && openSimplexTerrain.getVertices()[i] <= 0.5);
-            assertTrue(""+openSimplexTerrain.getVertices()[i+1],openSimplexTerrain.getVertices()[i+1] >= -0.5 && openSimplexTerrain.getVertices()[i+1] <= 0.5);
-            assertTrue(""+openSimplexTerrain.getVertices()[i+2],openSimplexTerrain.getVertices()[i+2] >= 0.0 && openSimplexTerrain.getVertices()[i+2] <= 1.0);
+        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
+        openSimplexPlane.create(params);
+        for (int i = 0; i < openSimplexPlane.getVertices().length; i += 3){
+            assertTrue(""+openSimplexPlane.getVertices()[i],openSimplexPlane.getVertices()[i] >= -0.5 && openSimplexPlane.getVertices()[i] <= 0.5);
+            assertTrue(""+openSimplexPlane.getVertices()[i+1],openSimplexPlane.getVertices()[i+1] >= -0.5 && openSimplexPlane.getVertices()[i+1] <= 0.5);
+            assertTrue(""+openSimplexPlane.getVertices()[i+2],openSimplexPlane.getVertices()[i+2] >= 0.0 && openSimplexPlane.getVertices()[i+2] <= 1.0);
         }
     }
 }
