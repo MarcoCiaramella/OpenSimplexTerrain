@@ -1,18 +1,18 @@
 package com.outofbound.opensimplexterrain;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import android.content.Context;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.outofbound.opensimplexterrainlib.OpenSimplexSphere;
 import com.outofbound.opensimplexterrainlib.OpenSimplexTerrain;
-import com.outofbound.opensimplexterrainlib.OpenSimplexPlane;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class OpenSimplexTerrainTest {
+public class OpenSimplexSphereTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -35,12 +35,12 @@ public class OpenSimplexTerrainTest {
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
-        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
-        openSimplexPlane.create(params);
-        for (int i = 0; i < openSimplexPlane.getVertices().length; i += 3){
-            assertTrue(""+openSimplexPlane.getVertices()[i],openSimplexPlane.getVertices()[i] >= -0.5 && openSimplexPlane.getVertices()[i] <= 0.5);
-            assertTrue(""+openSimplexPlane.getVertices()[i+1],openSimplexPlane.getVertices()[i+1] >= -0.5 && openSimplexPlane.getVertices()[i+1] <= 0.5);
-            assertTrue(""+openSimplexPlane.getVertices()[i+2],openSimplexPlane.getVertices()[i+2] >= 0.0 && openSimplexPlane.getVertices()[i+2] <= 1.0);
+        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere();
+        openSimplexSphere.create(params);
+        for (int i = 0; i < openSimplexSphere.getVertices().length; i += 3){
+            assertTrue(""+openSimplexSphere.getVertices()[i],openSimplexSphere.getVertices()[i] >= -0.5 && openSimplexSphere.getVertices()[i] <= 0.5);
+            assertTrue(""+openSimplexSphere.getVertices()[i+1],openSimplexSphere.getVertices()[i+1] >= -0.5 && openSimplexSphere.getVertices()[i+1] <= 0.5);
+            assertTrue(""+openSimplexSphere.getVertices()[i+2],openSimplexSphere.getVertices()[i+2] >= 0.0 && openSimplexSphere.getVertices()[i+2] <= 1.0);
         }
     }
 }
