@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-        params.size = 32;
+        params.size = 4;
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;

@@ -47,12 +47,12 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initGrids() {
-        grid1 = newGrid(0, 0, 0, 1.0/params.size);
-        grid2 = newGrid(0, 0, 0, 2.0 * (1.0/params.size));
-        grid4 = newGrid(0, 0, 0, 4.0 * (1.0/params.size));
-        grid8 = newGrid(0, 0, 0, 8.0 * (1.0/params.size));
-        grid16 = newGrid(0, 0, 0, 16.0 * (1.0/params.size));
-        grid32 = newGrid(0, 0, 0, 32.0 * (1.0/params.size));
+        grid1 = newGrid(0, 0, 0, 1.0);
+        grid2 = newGrid(0, 0, 0, 2.0);
+        grid4 = newGrid(0, 0, 0, 4.0);
+        grid8 = newGrid(0, 0, 0, 8.0);
+        grid16 = newGrid(0, 0, 0, 16.0);
+        grid32 = newGrid(0, 0, 0, 32.0);
     }
 
     @Override
