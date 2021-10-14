@@ -146,7 +146,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void calcNoise() {
-        float lengthInv = 1.0f / radius;
+        float lengthInv = 1f / radius;
         for (int i = 0; i < vertices.length; i++) {
             double noise = (params.oct1 * noiseVal1[i]
                     + params.oct2 * noiseVal2[i]
