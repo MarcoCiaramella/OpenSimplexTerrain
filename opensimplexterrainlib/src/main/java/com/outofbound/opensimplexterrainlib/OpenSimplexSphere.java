@@ -157,7 +157,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     + 1) / 2;
             noise /= (params.oct1 + params.oct2 + params.oct4 + params.oct8 + params.oct16 + params.oct32);
             noise = Math.pow(noise, params.exp);
-            noise = ((int)(noise*params.res)) / params.res;
+            //noise = ((int)(noise*params.res)) / params.res;
 
             float noiseF = (float)noise;
             float nx = vertices[i].x * lengthInv;
