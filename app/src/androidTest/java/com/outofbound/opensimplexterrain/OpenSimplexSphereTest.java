@@ -31,7 +31,7 @@ public class OpenSimplexSphereTest {
     @Test
     public void testVertices(){
         OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-        params.size = 512;
+        params.size = 16;
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
