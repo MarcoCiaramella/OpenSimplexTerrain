@@ -1,8 +1,12 @@
 package com.outofbound.opensimplexterrainlib;
 
-public class OpenSimplexPlane extends OpenSimplexTerrain{
+public class OpenSimplexPlane extends OpenSimplexTerrain {
 
-    private double[] points(int width, int height, int offX, int offY, double freq){
+    public OpenSimplexPlane(Params params) {
+        super(params);
+    }
+
+    private double[] newGrid(int width, int height, int offX, int offY, double freq){
         double[] points = new double[width*height*2];
         int i = 0;
         for (int y = 0; y < height; y++) {
@@ -18,12 +22,12 @@ public class OpenSimplexPlane extends OpenSimplexTerrain{
 
     @Override
     protected void initGrids() {
-        grid1 = points(params.size, params.size, 0, 0, 1.0/params.size);
-        grid2 = points(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
-        grid4 = points(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
-        grid8 = points(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
-        grid16 = points(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
-        grid32 = points(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
+        grid1 = newGrid(params.size, params.size, 0, 0, 1.0/params.size);
+        grid2 = newGrid(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
+        grid4 = newGrid(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
+        grid8 = newGrid(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
+        grid16 = newGrid(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
+        grid32 = newGrid(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
     }
 
     @Override

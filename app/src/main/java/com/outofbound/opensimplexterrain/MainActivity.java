@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-        params.size = 128;
+        params.size = 32;
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
-        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere();
-        openSimplexSphere.create(params);
+        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(params);
+        openSimplexSphere.create();
 
         sendEmail(openSimplexSphere, "openSimplexSphere");
     }

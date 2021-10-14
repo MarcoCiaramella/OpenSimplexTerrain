@@ -1,14 +1,20 @@
 package com.outofbound.opensimplexterrainlib;
 
-public class OpenSimplexSphere extends OpenSimplexTerrain{
+public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     private float radius = 0.5f;
+    double[] sphere;
 
-    private double[] points(int offX, int offY, int offZ, double freq){
-        double[] points = new double[((params.size+1) * (params.size+1)) * 3];
+    public OpenSimplexSphere(Params params){
+        super(params);
+        newSphere();
+    }
+
+    private void newSphere(){
+        sphere = new double[((params.size+1) * (params.size+1)) * 3];
         float x, y, z, xy;
         float sectorStep = 2 * pi() / params.size;
-        float stackStep = pi()/ params.size;
+        float stackStep = pi() / params.size;
         float sectorAngle, stackAngle;
         int p = 0;
         for (int i = 0; i <= params.size; i++) {
@@ -22,37 +28,40 @@ public class OpenSimplexSphere extends OpenSimplexTerrain{
                 x = xy * cosf(sectorAngle);
                 y = xy * sinf(sectorAngle);
 
-                double xd = (x + offX) * freq;
-                double yd = (y + offY) * freq;
-                double zd = (z + offZ) * freq;
-
-                points[p++] = xd;
-                points[p++] = yd;
-                points[p++] = zd;
+                sphere[p++] = x;
+                sphere[p++] = y;
+                sphere[p++] = z;
             }
         }
-        return points;
+    }
+
+    private double[] newGrid(int offX, int offY, int offZ, double freq){
+        double[] grid = new double[sphere.length];
+        for (int i = 0; i < grid.length; i += 3){
+            grid[i] = (sphere[i] + offX) * freq;
+            grid[i+1] = (sphere[i+1] + offY) * freq;
+            grid[i+2] = (sphere[i+2] + offZ) * freq;
+        }
+        return grid;
     }
 
     @Override
     protected void initGrids() {
-        grid1 = points(0, 0, 0, 1.0/params.size);
-        grid2 = points(0, 0, 0, 2.0 * (1.0/params.size));
-        grid4 = points(0, 0, 0, 4.0 * (1.0/params.size));
-        grid8 = points(0, 0, 0, 8.0 * (1.0/params.size));
-        grid16 = points(0, 0, 0, 16.0 * (1.0/params.size));
-        grid32 = points(0, 0, 0, 32.0 * (1.0/params.size));
+        grid1 = newGrid(0, 0, 0, 1.0/params.size);
+        grid2 = newGrid(0, 0, 0, 2.0 * (1.0/params.size));
+        grid4 = newGrid(0, 0, 0, 4.0 * (1.0/params.size));
+        grid8 = newGrid(0, 0, 0, 8.0 * (1.0/params.size));
+        grid16 = newGrid(0, 0, 0, 16.0 * (1.0/params.size));
+        grid32 = newGrid(0, 0, 0, 32.0 * (1.0/params.size));
     }
 
     @Override
     protected void initVertices() {
         vertices = new Vertex[(params.size+1) * (params.size+1)];
         verticesArr = new float[vertices.length*3];
-
-        double[] points = points(0, 0, 0, 1.0);
-        int p = 0;
-        for (int i = 0; i < points.length; i += 3){
-            vertices[p++] = new Vertex((float)points[i], (float)points[i+1], (float)points[i+2]);
+        int j = 0;
+        for (int i = 0; i < sphere.length; i += 3){
+            vertices[j++] = new Vertex((float)sphere[i], (float)sphere[i+1], (float)sphere[i+2]);
         }
     }
 

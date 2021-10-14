@@ -35,8 +35,8 @@ public class OpenSimplexPlaneTest {
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
-        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
-        openSimplexPlane.create(params);
+        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane(params);
+        openSimplexPlane.create();
         for (int i = 0; i < openSimplexPlane.getVertices().length; i += 3){
             assertTrue(""+openSimplexPlane.getVertices()[i],openSimplexPlane.getVertices()[i] >= -0.5 && openSimplexPlane.getVertices()[i] <= 0.5);
             assertTrue(""+openSimplexPlane.getVertices()[i+1],openSimplexPlane.getVertices()[i+1] >= -0.5 && openSimplexPlane.getVertices()[i+1] <= 0.5);

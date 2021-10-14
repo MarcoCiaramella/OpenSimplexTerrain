@@ -65,9 +65,21 @@ public abstract class OpenSimplexTerrain {
         }
     }
 
-    public OpenSimplexTerrain(){
-        params = null;
-        openSimplex2F = null;
+    public OpenSimplexTerrain(Params params){
+        this.params = new Params();
+        this.params.copy(params);
+    }
+
+    public void create(){
+        initGrids();
+        initVertices();
+        initNoise();
+        calcNoise();
+        toArray(vertices);
+        initNormals();
+        initTriangles();
+        calcNormals();
+        toArray(normals);
     }
 
     public void create(Params params){

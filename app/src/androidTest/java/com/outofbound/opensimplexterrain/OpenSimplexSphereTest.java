@@ -35,8 +35,8 @@ public class OpenSimplexSphereTest {
         params.seed = 1234;
         params.oct1 = 1.0f;
         params.exp = 4.0;
-        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere();
-        openSimplexSphere.create(params);
+        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(params);
+        openSimplexSphere.create();
         for (int i = 0; i < openSimplexSphere.getVertices().length; i++){
             assertTrue(""+openSimplexSphere.getVertices()[i],openSimplexSphere.getVertices()[i] >= -1.5 && openSimplexSphere.getVertices()[i] <= 1.5);
         }
