@@ -21,16 +21,6 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     }
 
     @Override
-    protected void initGrids() {
-        grid1 = newGrid(params.size, params.size, 0, 0, 1.0/params.size);
-        grid2 = newGrid(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
-        grid4 = newGrid(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
-        grid8 = newGrid(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
-        grid16 = newGrid(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
-        grid32 = newGrid(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
-    }
-
-    @Override
     protected void initVertices() {
         vertices = new Vertex[params.size*params.size];
         verticesArr = new float[vertices.length*3];
@@ -112,31 +102,37 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     @Override
     protected void initNoise1() {
-        noiseVal1 = openSimplex2F.noise2(grid1, grid1.length/2);
+        double[] grid = newGrid(params.size, params.size, 0, 0, 1.0/params.size);
+        noiseVal1 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise2() {
-        noiseVal2 = openSimplex2F.noise2(grid2, grid2.length/2);
+        double[] grid = newGrid(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
+        noiseVal2 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise4() {
-        noiseVal4 = openSimplex2F.noise2(grid4, grid4.length/2);
+        double[] grid = newGrid(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
+        noiseVal4 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise8() {
-        noiseVal8 = openSimplex2F.noise2(grid8, grid8.length/2);
+        double[] grid = newGrid(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
+        noiseVal8 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise16() {
-        noiseVal16 = openSimplex2F.noise2(grid16, grid16.length/2);
+        double[] grid = newGrid(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
+        noiseVal16 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise32() {
-        noiseVal32 = openSimplex2F.noise2(grid32, grid32.length/2);
+        double[] grid = newGrid(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
+        noiseVal32 = openSimplex2F.noise2(grid, grid.length/2);
     }
 }

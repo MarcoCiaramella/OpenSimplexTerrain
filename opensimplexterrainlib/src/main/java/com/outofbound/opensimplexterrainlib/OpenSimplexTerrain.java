@@ -5,12 +5,6 @@ import com.jnoise.opensimplexnoiselib.OpenSimplex2F;
 
 public abstract class OpenSimplexTerrain {
 
-    protected double[] grid1;
-    protected double[] grid2;
-    protected double[] grid4;
-    protected double[] grid8;
-    protected double[] grid16;
-    protected double[] grid32;
     protected Vertex[] vertices;
     protected float[] verticesArr;
     protected Normal[] normals;
@@ -71,7 +65,6 @@ public abstract class OpenSimplexTerrain {
     }
 
     public void create(){
-        initGrids();
         initVertices();
         initNoise();
         calcNoise();
@@ -86,7 +79,6 @@ public abstract class OpenSimplexTerrain {
         if (this.params == null) {
             this.params = new Params();
             this.params.copy(params);
-            initGrids();
             initVertices();
             initNoise();
             calcNoise();
@@ -137,8 +129,6 @@ public abstract class OpenSimplexTerrain {
         }
     }
 
-    protected abstract void initGrids();
-
     protected abstract void initVertices();
 
     protected abstract void initTriangles();
@@ -180,7 +170,6 @@ public abstract class OpenSimplexTerrain {
     }
 
     private void onSizeChange(){
-        initGrids();
         initVertices();
         initNoise();
         initNormals();
