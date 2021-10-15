@@ -19,7 +19,7 @@ Add the dependency
 
 ```
 dependencies {
-	        implementation 'com.github.MarcoCiaramella:OpenSimplexTerrain:v1.0.1'
+	        implementation 'com.github.MarcoCiaramella:OpenSimplexTerrain:vX.X.X'
 }
 ```
 
