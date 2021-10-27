@@ -9,7 +9,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.outofbound.opensimplexterrainlib.OpenSimplexSphere;
-import com.outofbound.opensimplexterrainlib.OpenSimplexTerrain;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,12 +29,7 @@ public class OpenSimplexSphereTest {
 
     @Test
     public void testVertices(){
-        OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-        params.size = 16;
-        params.seed = 1234;
-        params.oct1 = 1.0f;
-        params.exp = 4.0;
-        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(params);
+        OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(16);
         openSimplexSphere.create();
         for (int i = 0; i < openSimplexSphere.getVertices().length; i++){
             assertTrue(""+openSimplexSphere.getVertices()[i],openSimplexSphere.getVertices()[i] >= -1.5 && openSimplexSphere.getVertices()[i] <= 1.5);

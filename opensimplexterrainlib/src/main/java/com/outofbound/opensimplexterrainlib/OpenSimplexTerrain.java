@@ -10,7 +10,6 @@ public abstract class OpenSimplexTerrain {
     protected Normal[] normals;
     protected float[] normalsArr;
     protected int[] indicesArr;
-    protected Params params;
     protected double[] noiseVal1;
     protected double[] noiseVal2;
     protected double[] noiseVal4;
@@ -18,115 +17,125 @@ public abstract class OpenSimplexTerrain {
     protected double[] noiseVal16;
     protected double[] noiseVal32;
     protected OpenSimplex2F openSimplex2F;
-
-    public static class Params {
-
-        public int size = 0;
-        public long seed = 0;
-        public float oct1 = 0;
-        public float oct2 = 0;
-        public float oct4 = 0;
-        public float oct8 = 0;
-        public float oct16 = 0;
-        public float oct32 = 0;
-        public double exp = 1;
-        public float res = 1000f;
-
-        public void copy(Params params){
-            size = params.size;
-            seed = params.seed;
-            oct1 = params.oct1;
-            oct2 = params.oct2;
-            oct4 = params.oct4;
-            oct8 = params.oct8;
-            oct16 = params.oct16;
-            oct32 = params.oct32;
-            exp = params.exp;
-            res = params.res;
-        }
-
-        public boolean equals(Params params){
-            return this.size == params.size &&
-                    this.seed == params.seed &&
-                    this.oct1 == params.oct1 &&
-                    this.oct2 == params.oct2 &&
-                    this.oct4 == params.oct4 &&
-                    this.oct8 == params.oct8 &&
-                    this.oct16 == params.oct16 &&
-                    this.oct32 == params.oct32 &&
-                    this.exp == params.exp &&
-                    this.res == params.res;
-        }
-    }
-
-    public OpenSimplexTerrain(Params params){
-        this.params = new Params();
-        this.params.copy(params);
-    }
+    protected long seed = 0;
+    protected float oct1 = 0;
+    protected float oct2 = 0;
+    protected float oct4 = 0;
+    protected float oct8 = 0;
+    protected float oct16 = 0;
+    protected float oct32 = 0;
+    protected double exp = 1;
+    protected float resolution = 1000f;
+    protected int size = 16;
+    private boolean initNoise = true;
+    private boolean initVertices = true;
+    private boolean initNoise1 = true;
+    private boolean initNoise2 = true;
+    private boolean initNoise4 = true;
+    private boolean initNoise8 = true;
+    private boolean initNoise16 = true;
+    private boolean initNoise32 = true;
 
     public void create(){
-        initVertices();
-        initNoise();
+        if (initVertices) {
+            initVertices();
+            initNormals();
+            initTriangles();
+            initVertices = false;
+        }
+        if (initNoise) {
+            initNoise();
+            initNoise = false;
+        }
+        if (initNoise1){
+            initNoise1();
+            initNoise1 = false;
+        }
+        if (initNoise2){
+            initNoise2();
+            initNoise2 = false;
+        }
+        if (initNoise4){
+            initNoise4();
+            initNoise4 = false;
+        }
+        if (initNoise8){
+            initNoise8();
+            initNoise8 = false;
+        }
+        if (initNoise16){
+            initNoise16();
+            initNoise16 = false;
+        }
+        if (initNoise32){
+            initNoise32();
+            initNoise32 = false;
+        }
         calcNoise();
-        toArray(vertices);
-        initNormals();
-        initTriangles();
         calcNormals();
+        toArray(vertices);
         toArray(normals);
     }
 
-    public void create(Params params){
-        if (this.params == null) {
-            this.params = new Params();
-            this.params.copy(params);
-            initVertices();
-            initNoise();
-            calcNoise();
-            toArray(vertices);
-            initNormals();
-            initTriangles();
-            calcNormals();
-            toArray(normals);
-        }
-        else if (!this.params.equals(params)){
-            Params oldParams = new Params();
-            oldParams.copy(this.params);
-            this.params.copy(params);
-            if (this.params.seed != oldParams.seed){
-                onSeedChange();
-            }
-            if (this.params.oct1 != oldParams.oct1){
-                onOct1Change();
-            }
-            if (this.params.oct2 != oldParams.oct2){
-                onOct2Change();
-            }
-            if (this.params.oct4 != oldParams.oct4){
-                onOct4Change();
-            }
-            if (this.params.oct8 != oldParams.oct8){
-                onOct8Change();
-            }
-            if (this.params.oct16 != oldParams.oct16){
-                onOct16Change();
-            }
-            if (this.params.oct32 != oldParams.oct32){
-                onOct32Change();
-            }
-            if (this.params.exp != oldParams.exp){
-                onExpChange();
-            }
-            if (this.params.res != oldParams.res){
-                onResChange();
-            }
-            if (this.params.size != oldParams.size){
-                onSizeChange();
-            }
-            calcNoise();
-            calcNormals();
-            toArray(vertices);
-            toArray(normals);
-        }
+    public void setSeed(long seed) {
+        this.seed = seed;
+        initNoise = true;
+        initNoise1 = true;
+        initNoise2 = true;
+        initNoise4 = true;
+        initNoise8 = true;
+        initNoise16 = true;
+        initNoise32 = true;
+    }
+
+    public void setOct1(float oct1) {
+        this.oct1 = oct1;
+        initNoise1 = true;
+    }
+
+    public void setOct2(float oct2) {
+        this.oct2 = oct2;
+        initNoise2 = true;
+    }
+
+    public void setOct4(float oct4) {
+        this.oct4 = oct4;
+        initNoise4 = true;
+    }
+
+    public void setOct8(float oct8) {
+        this.oct8 = oct8;
+        initNoise8 = true;
+    }
+
+    public void setOct16(float oct16) {
+        this.oct16 = oct16;
+        initNoise16 = true;
+    }
+
+    public void setOct32(float oct32) {
+        this.oct32 = oct32;
+        initNoise32 = true;
+    }
+
+    public void setExp(double exp) {
+        this.exp = exp;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+        initVertices = true;
+        initNoise1 = true;
+        initNoise2 = true;
+        initNoise4 = true;
+        initNoise8 = true;
+        initNoise16 = true;
+        initNoise32 = true;
+    }
+
+    public void setResolution(float resolution) {
+        this.resolution = resolution;
+        initVertices = true;
     }
 
     protected abstract void initVertices();
@@ -144,13 +153,7 @@ public abstract class OpenSimplexTerrain {
     protected abstract void calcNoise();
 
     private void initNoise(){
-        openSimplex2F = new OpenSimplex2F(params.seed);
-        initNoise1();
-        initNoise2();
-        initNoise4();
-        initNoise8();
-        initNoise16();
-        initNoise32();
+        openSimplex2F = new OpenSimplex2F(seed);
     }
 
     protected abstract void initNoise1();
@@ -164,48 +167,6 @@ public abstract class OpenSimplexTerrain {
     protected abstract void initNoise16();
 
     protected abstract void initNoise32();
-
-    private void onSeedChange(){
-        initNoise();
-    }
-
-    private void onSizeChange(){
-        initVertices();
-        initNoise();
-        initNormals();
-        initTriangles();
-    }
-
-    private void onOct1Change(){
-        initNoise1();
-    }
-
-    private void onOct2Change(){
-        initNoise2();
-    }
-
-    private void onOct4Change(){
-        initNoise4();
-    }
-
-    private void onOct8Change(){
-        initNoise8();
-    }
-
-    private void onOct16Change(){
-        initNoise16();
-    }
-
-    private void onOct32Change(){
-        initNoise32();
-    }
-
-    private void onResChange(){
-        initVertices();
-    }
-
-    private void onExpChange(){
-    }
 
     public float[] getVertices(){
         return verticesArr;

@@ -2,10 +2,6 @@ package com.outofbound.opensimplexterrainlib;
 
 public class OpenSimplexPlane extends OpenSimplexTerrain {
 
-    public OpenSimplexPlane(Params params) {
-        super(params);
-    }
-
     private double[] newGrid(int width, int height, int offX, int offY, double freq){
         double[] points = new double[width*height*2];
         int i = 0;
@@ -22,15 +18,15 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     @Override
     protected void initVertices() {
-        vertices = new Vertex[params.size*params.size];
+        vertices = new Vertex[size*size];
         verticesArr = new float[vertices.length*3];
         int i = 0;
-        for (int y = 0; y < params.size; y++) {
-            for (int x = 0; x < params.size; x++) {
-                float x01 = x/(float)params.size;
-                float y01 = y/(float)params.size;
-                x01 = ((int)(x01*params.res)) / params.res;
-                y01 = ((int)(y01*params.res)) / params.res;
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                float x01 = x/(float)size;
+                float y01 = y/(float)size;
+                x01 = ((int)(x01* resolution)) / resolution;
+                y01 = ((int)(y01* resolution)) / resolution;
                 vertices[i++] = new Vertex(x01-0.5f,y01-0.5f,0);
             }
         }
@@ -38,11 +34,11 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     @Override
     protected void initTriangles() {
-        indicesArr = new int[(params.size - 1) * (params.size - 1) * 2 *6];
-        int w = params.size;
+        indicesArr = new int[(size - 1) * (size - 1) * 2 *6];
+        int w = size;
         int r = 0;
-        for (int j = 0; j < params.size-1; j++) {
-            for (int i = 0; i < params.size-1; i++) {
+        for (int j = 0; j < size-1; j++) {
+            for (int i = 0; i < size-1; i++) {
                 int q = j*w + i;
                 int t1v1i = q + 1;
                 int t1v2i = w + q;
@@ -76,7 +72,7 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     @Override
     protected void initNormals() {
-        normals = new Normal[params.size*params.size];
+        normals = new Normal[size*size];
         normalsArr = new float[normals.length*3];
         for (int i = 0; i < normals.length; i++){
             normals[i] = new Normal();
@@ -86,53 +82,53 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     @Override
     protected void calcNoise() {
         for (int i = 0; i < vertices.length; i++) {
-            double z01 = (params.oct1 * noiseVal1[i]
-                    + params.oct2 * noiseVal2[i]
-                    + params.oct4 * noiseVal4[i]
-                    + params.oct8 * noiseVal8[i]
-                    + params.oct16 * noiseVal16[i]
-                    + params.oct32 * noiseVal32[i]
+            double z01 = (oct1 * noiseVal1[i]
+                    + oct2 * noiseVal2[i]
+                    + oct4 * noiseVal4[i]
+                    + oct8 * noiseVal8[i]
+                    + oct16 * noiseVal16[i]
+                    + oct32 * noiseVal32[i]
                     + 1) / 2;
-            z01 /= (params.oct1 + params.oct2 + params.oct4 + params.oct8 + params.oct16 + params.oct32);
-            z01 = Math.pow(z01, params.exp);
-            z01 = ((int)(z01*params.res)) / params.res;
+            z01 /= (oct1 + oct2 + oct4 + oct8 + oct16 + oct32);
+            z01 = Math.pow(z01, exp);
+            z01 = ((int)(z01* resolution)) / resolution;
             vertices[i].z = (float)z01;
         }
     }
 
     @Override
     protected void initNoise1() {
-        double[] grid = newGrid(params.size, params.size, 0, 0, 1.0/params.size);
+        double[] grid = newGrid(size, size, 0, 0, 1.0/size);
         noiseVal1 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise2() {
-        double[] grid = newGrid(params.size, params.size, 0, 0, 2.0 * (1.0/params.size));
+        double[] grid = newGrid(size, size, 0, 0, 2.0 * (1.0/size));
         noiseVal2 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise4() {
-        double[] grid = newGrid(params.size, params.size, 0, 0, 4.0 * (1.0/params.size));
+        double[] grid = newGrid(size, size, 0, 0, 4.0 * (1.0/size));
         noiseVal4 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise8() {
-        double[] grid = newGrid(params.size, params.size, 0, 0, 8.0 * (1.0/params.size));
+        double[] grid = newGrid(size, size, 0, 0, 8.0 * (1.0/size));
         noiseVal8 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise16() {
-        double[] grid = newGrid(params.size, params.size, 0, 0, 16.0 * (1.0/params.size));
+        double[] grid = newGrid(size, size, 0, 0, 16.0 * (1.0/size));
         noiseVal16 = openSimplex2F.noise2(grid, grid.length/2);
     }
 
     @Override
     protected void initNoise32() {
-        double[] grid = newGrid(params.size, params.size, 0, 0, 32.0 * (1.0/params.size));
+        double[] grid = newGrid(size, size, 0, 0, 32.0 * (1.0/size));
         noiseVal32 = openSimplex2F.noise2(grid, grid.length/2);
     }
 }

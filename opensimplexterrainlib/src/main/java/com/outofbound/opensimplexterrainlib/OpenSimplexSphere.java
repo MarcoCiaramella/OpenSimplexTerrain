@@ -2,27 +2,27 @@ package com.outofbound.opensimplexterrainlib;
 
 public class OpenSimplexSphere extends OpenSimplexTerrain {
 
-    private float radius = 0.5f;
-    double[] sphere;
+    private final float radius = 0.5f;
+    private double[] sphere;
 
-    public OpenSimplexSphere(Params params){
-        super(params);
+    public OpenSimplexSphere(int size){
+        this.size = size;
         newSphere();
     }
 
     private void newSphere(){
-        sphere = new double[((params.size+1) * (params.size+1)) * 3];
+        sphere = new double[((size+1) * (size+1)) * 3];
         float x, y, z, xy;
-        float sectorStep = 2 * pi() / params.size;
-        float stackStep = pi() / params.size;
+        float sectorStep = 2 * pi() / size;
+        float stackStep = pi() / size;
         float sectorAngle, stackAngle;
         int p = 0;
-        for (int i = 0; i <= params.size; i++) {
+        for (int i = 0; i <= size; i++) {
             stackAngle = pi() / 2 - i * stackStep;
             xy = radius * cosf(stackAngle);
             z = radius * sinf(stackAngle);
 
-            for (int j = 0; j <= params.size; j++) {
+            for (int j = 0; j <= size; j++) {
                 sectorAngle = j * sectorStep;
 
                 x = xy * cosf(sectorAngle);
@@ -47,7 +47,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initVertices() {
-        vertices = new Vertex[(params.size+1) * (params.size+1)];
+        vertices = new Vertex[(size+1) * (size+1)];
         verticesArr = new float[vertices.length*3];
         int j = 0;
         for (int i = 0; i < sphere.length; i += 3){
@@ -69,7 +69,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initTriangles() {
-        indicesArr = new int[(params.size + params.size + (params.size-2)*params.size*2) * 3];
+        indicesArr = new int[(size + size + (size-2)*size*2) * 3];
         int r = 0;
         // indices
         //  k1--k1+1
@@ -77,11 +77,11 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
         //  | /  |
         //  k2--k2+1
         int k1, k2;
-        for(int i = 0; i < params.size; i++){
-            k1 = i * (params.size + 1);     // beginning of current stack
-            k2 = k1 + params.size + 1;      // beginning of next stack
+        for(int i = 0; i < size; i++){
+            k1 = i * (size + 1);     // beginning of current stack
+            k2 = k1 + size + 1;      // beginning of next stack
 
-            for(int j = 0; j < params.size; j++, k1++, k2++){
+            for(int j = 0; j < size; j++, k1++, k2++){
                 // 2 triangles per sector excluding 1st and last stacks
                 if(i != 0){
                     // k1---k2---k1+1
@@ -103,7 +103,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
                 }
 
-                if(i != (params.size-1)){
+                if(i != (size-1)){
                     // k1+1---k2---k2+1
                     int a = k1+1;
                     int b = k2;
@@ -127,7 +127,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initNormals() {
-        normals = new Normal[(params.size+1) * (params.size+1)];
+        normals = new Normal[(size+1) * (size+1)];
         normalsArr = new float[normals.length*3];
         for (int i = 0; i < normals.length; i++){
             normals[i] = new Normal();
@@ -138,16 +138,16 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     protected void calcNoise() {
         float lengthInv = 1f / radius;
         for (int i = 0; i < vertices.length; i++) {
-            double noise = (params.oct1 * noiseVal1[i]
-                    + params.oct2 * noiseVal2[i]
-                    + params.oct4 * noiseVal4[i]
-                    + params.oct8 * noiseVal8[i]
-                    + params.oct16 * noiseVal16[i]
-                    + params.oct32 * noiseVal32[i]
+            double noise = (oct1 * noiseVal1[i]
+                    + oct2 * noiseVal2[i]
+                    + oct4 * noiseVal4[i]
+                    + oct8 * noiseVal8[i]
+                    + oct16 * noiseVal16[i]
+                    + oct32 * noiseVal32[i]
                     + 1) / 2;
-            noise /= (params.oct1 + params.oct2 + params.oct4 + params.oct8 + params.oct16 + params.oct32);
-            noise = Math.pow(noise, params.exp);
-            //noise = ((int)(noise*params.res)) / params.res;
+            noise /= (oct1 + oct2 + oct4 + oct8 + oct16 + oct32);
+            noise = Math.pow(noise, exp);
+            //noise = ((int)(noise*res)) / res;
 
             float noiseF = (float)noise;
             float nx = vertices[i].x * lengthInv;

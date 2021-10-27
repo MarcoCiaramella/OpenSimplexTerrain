@@ -30,12 +30,11 @@ public class OpenSimplexPlaneTest {
 
     @Test
     public void testVertices(){
-        OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-        params.size = 512;
-        params.seed = 1234;
-        params.oct1 = 1.0f;
-        params.exp = 4.0;
-        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane(params);
+        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
+        openSimplexPlane.setSize(512);
+        openSimplexPlane.setSeed(1234);
+        openSimplexPlane.setExp(4.0);
+        openSimplexPlane.setOct1(1f);
         openSimplexPlane.create();
         for (int i = 0; i < openSimplexPlane.getVertices().length; i += 3){
             assertTrue(""+openSimplexPlane.getVertices()[i],openSimplexPlane.getVertices()[i] >= -0.5 && openSimplexPlane.getVertices()[i] <= 0.5);
