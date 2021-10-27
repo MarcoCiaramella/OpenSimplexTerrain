@@ -18,23 +18,22 @@ public abstract class OpenSimplexTerrain {
     protected double[] noiseVal32;
     protected OpenSimplex2F openSimplex2F;
     protected long seed = 0;
-    protected float oct1 = 0;
+    protected float oct1 = 1f;
     protected float oct2 = 0;
     protected float oct4 = 0;
     protected float oct8 = 0;
     protected float oct16 = 0;
     protected float oct32 = 0;
     protected double exp = 1;
-    protected float resolution = 1000f;
     protected int size = 16;
-    private boolean initNoise = true;
-    private boolean initVertices = true;
-    private boolean initNoise1 = true;
-    private boolean initNoise2 = true;
-    private boolean initNoise4 = true;
-    private boolean initNoise8 = true;
-    private boolean initNoise16 = true;
-    private boolean initNoise32 = true;
+    protected boolean initNoise = true;
+    protected boolean initVertices = true;
+    protected boolean initNoise1 = true;
+    protected boolean initNoise2 = true;
+    protected boolean initNoise4 = true;
+    protected boolean initNoise8 = true;
+    protected boolean initNoise16 = true;
+    protected boolean initNoise32 = true;
 
     public void create(){
         if (initVertices) {
@@ -131,11 +130,6 @@ public abstract class OpenSimplexTerrain {
         initNoise8 = true;
         initNoise16 = true;
         initNoise32 = true;
-    }
-
-    public void setResolution(float resolution) {
-        this.resolution = resolution;
-        initVertices = true;
     }
 
     protected abstract void initVertices();

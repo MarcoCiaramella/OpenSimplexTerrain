@@ -2,6 +2,8 @@ package com.outofbound.opensimplexterrainlib;
 
 public class OpenSimplexPlane extends OpenSimplexTerrain {
 
+    private float resolution = 1000f;
+
     private double[] newGrid(int width, int height, int offX, int offY, double freq){
         double[] points = new double[width*height*2];
         int i = 0;
@@ -25,8 +27,8 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
             for (int x = 0; x < size; x++) {
                 float x01 = x/(float)size;
                 float y01 = y/(float)size;
-                x01 = ((int)(x01* resolution)) / resolution;
-                y01 = ((int)(y01* resolution)) / resolution;
+                x01 = ((int)(x01 * resolution)) / resolution;
+                y01 = ((int)(y01 * resolution)) / resolution;
                 vertices[i++] = new Vertex(x01-0.5f,y01-0.5f,0);
             }
         }
@@ -130,5 +132,10 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     protected void initNoise32() {
         double[] grid = newGrid(size, size, 0, 0, 32.0 * (1.0/size));
         noiseVal32 = openSimplex2F.noise2(grid, grid.length/2);
+    }
+
+    public void setResolution(float resolution) {
+        this.resolution = resolution;
+        initVertices = true;
     }
 }

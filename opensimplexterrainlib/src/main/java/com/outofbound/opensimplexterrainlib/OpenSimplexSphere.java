@@ -7,7 +7,6 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     public OpenSimplexSphere(int size){
         this.size = size;
-        newSphere();
     }
 
     private void newSphere(){
@@ -47,6 +46,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initVertices() {
+        newSphere();
         vertices = new Vertex[(size+1) * (size+1)];
         verticesArr = new float[vertices.length*3];
         int j = 0;
@@ -147,7 +147,6 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     + 1) / 2;
             noise /= (oct1 + oct2 + oct4 + oct8 + oct16 + oct32);
             noise = Math.pow(noise, exp);
-            //noise = ((int)(noise*res)) / res;
 
             float noiseF = (float)noise;
             float nx = vertices[i].x * lengthInv;
