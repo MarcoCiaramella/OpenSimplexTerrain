@@ -23,16 +23,34 @@ dependencies {
 }
 ```
 
+## How it works
+OpenSimplexTerrain generates terrains by mixing 8 weighted noises together.
+The weights are set by their relative setter methods `setOct1`, `setOct2`, `setOct4`, `setOct8`, `setOct16` and `setOct32`.
+The weight value must range from 0.0 to 1.0.
+
+### OpenSimplexPlane
+Class `OpenSimplexPlane` generates plane terrains. The shape of the grid can be controlled by setting a resolution value with `setResolution`.
+A lower resolution generates a more squared shape.
+
+### OpenSimplexSphere
+Class `OpenSimplexSphere` generates terrains in sphere shape like planet. The resolution of the sphere is controlled by its `size` parameter.
+
 ## How to use
 ```java
-OpenSimplexTerrain.Params params = new OpenSimplexTerrain.Params();
-params.size = 512;
-params.seed = 1234;
-params.oct1 = 1.0f;
-params.exp = 4.0;
-OpenSimplexTerrain map3D = new OpenSimplexTerrain();
-map3D.create(params);
-float[] vertices = map3D.getVertices();
-int[] indices = map3D.getIndices();
-float[] normals = map3D.getNormals();
+OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
+openSimplexPlane.setSeed(43);
+openSimplexPlane.setSize(64);
+openSimplexPlane.setOct1(0.8f);
+openSimplexPlane.setOct4(0.3f);
+openSimplexPlane.setOct16(0.1f);
+openSimplexPlane.setExp(4.0);
+openSimplexPlane.create();
+
+OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(128);
+openSimplexSphere.setSeed(43);
+openSimplexSphere.setOct1(0.8f);
+openSimplexSphere.setOct2(0.3f);
+openSimplexSphere.setOct8(0.1f);
+openSimplexSphere.setExp(4.0);
+openSimplexSphere.create();
 ```

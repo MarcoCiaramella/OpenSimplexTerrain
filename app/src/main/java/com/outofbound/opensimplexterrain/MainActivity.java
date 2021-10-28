@@ -53,9 +53,19 @@ public class MainActivity extends AppCompatActivity {
         openSimplexSphere.setExp(4.0);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 4, "OpenSimplexSphere"));
-        openSimplexSphere.setSize(64);
+        openSimplexSphere.setOct1(0.5f);
+        openSimplexSphere.setOct2(0.2f);
+        openSimplexSphere.setOct4(0.1f);
+        openSimplexSphere.setSize(256);
+        openSimplexSphere.setExp(4.0);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 5, "OpenSimplexSphere"));
+        openSimplexSphere.setSize(8);
+        openSimplexSphere.create();
+        files.add(export(openSimplexSphere, 6, "OpenSimplexSphere"));
+        openSimplexSphere.setSize(128);
+        openSimplexSphere.create();
+        files.add(export(openSimplexSphere, 7, "OpenSimplexSphere"));
     }
 
     private void exportOpenSimplexPlane(){

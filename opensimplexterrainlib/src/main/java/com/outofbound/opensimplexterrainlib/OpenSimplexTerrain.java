@@ -87,33 +87,39 @@ public abstract class OpenSimplexTerrain {
         initNoise32 = true;
     }
 
-    public void setOct1(float oct1) {
-        this.oct1 = oct1;
+    public void setOct1(float value) {
+        checkOctValue(value);
+        this.oct1 = value;
         initNoise1 = true;
     }
 
-    public void setOct2(float oct2) {
-        this.oct2 = oct2;
+    public void setOct2(float value) {
+        checkOctValue(value);
+        this.oct2 = value;
         initNoise2 = true;
     }
 
-    public void setOct4(float oct4) {
-        this.oct4 = oct4;
+    public void setOct4(float value) {
+        checkOctValue(value);
+        this.oct4 = value;
         initNoise4 = true;
     }
 
-    public void setOct8(float oct8) {
-        this.oct8 = oct8;
+    public void setOct8(float value) {
+        checkOctValue(value);
+        this.oct8 = value;
         initNoise8 = true;
     }
 
-    public void setOct16(float oct16) {
-        this.oct16 = oct16;
+    public void setOct16(float value) {
+        checkOctValue(value);
+        this.oct16 = value;
         initNoise16 = true;
     }
 
-    public void setOct32(float oct32) {
-        this.oct32 = oct32;
+    public void setOct32(float value) {
+        checkOctValue(value);
+        this.oct32 = value;
         initNoise32 = true;
     }
 
@@ -189,6 +195,12 @@ public abstract class OpenSimplexTerrain {
             normalsArr[j++] = normal.x;
             normalsArr[j++] = normal.y;
             normalsArr[j++] = normal.z;
+        }
+    }
+
+    private void checkOctValue(float value){
+        if (value < 0f || value > 1f) {
+            throw new IllegalArgumentException("oct value must be >= 0.0 and <= 1.0");
         }
     }
 
