@@ -10,7 +10,7 @@ repositories {
 }
 
 group = 'com.github.MarcoCiaramella'
-version = '1.0.4'
+version = '1.0.5'
 
 android {
     compileSdkVersion 30
@@ -53,7 +53,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.MarcoCiaramella'
                 artifactId = 'OpenSimplexTerrain'
-                version = '1.0.4'
+                version = '1.0.5'
             }
         }
     }
