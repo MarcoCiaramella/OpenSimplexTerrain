@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         openSimplexSphere.setSize(128);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 7, "OpenSimplexSphere"));
+
+        float[] vertices = openSimplexSphere.getVertices();
+        float[] normals = openSimplexSphere.getNormals();
+        int[] indices = openSimplexSphere.getIndices();
     }
 
     private void exportOpenSimplexPlane(){
@@ -96,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
         openSimplexPlane.setResolution(16f);
         openSimplexPlane.create();
         files.add(export(openSimplexPlane, 6, "OpenSimplexPlane"));
+
+        float[] vertices = openSimplexPlane.getVertices();
+        float[] normals = openSimplexPlane.getNormals();
+        int[] indices = openSimplexPlane.getIndices();
     }
 
     private File export(OpenSimplexTerrain openSimplexTerrain, int id, String basename){

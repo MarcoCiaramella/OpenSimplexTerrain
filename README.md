@@ -45,6 +45,9 @@ openSimplexPlane.setOct4(0.3f);
 openSimplexPlane.setOct16(0.1f);
 openSimplexPlane.setExp(4.0);
 openSimplexPlane.create();
+float[] vertices = openSimplexPlane.getVertices();
+float[] normals = openSimplexPlane.getNormals();
+int[] indices = openSimplexPlane.getIndices();
 
 OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(128);
 openSimplexSphere.setSeed(43);
@@ -53,4 +56,7 @@ openSimplexSphere.setOct2(0.3f);
 openSimplexSphere.setOct8(0.1f);
 openSimplexSphere.setExp(4.0);
 openSimplexSphere.create();
+float[] vertices = openSimplexSphere.getVertices();
+float[] normals = openSimplexSphere.getNormals();
+int[] indices = openSimplexSphere.getIndices();
 ```
