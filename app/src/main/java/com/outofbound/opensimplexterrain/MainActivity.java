@@ -63,7 +63,12 @@ public class MainActivity extends AppCompatActivity {
         openSimplexSphere.setSize(8);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 6, "OpenSimplexSphere"));
-        openSimplexSphere.setSize(128);
+        openSimplexSphere.setSize(512);
+        openSimplexSphere.setOct1(0.8f);
+        openSimplexSphere.setOct2(0.5f);
+        openSimplexSphere.setOct4(0.2f);
+        openSimplexSphere.setOct8(0.1f);
+        openSimplexSphere.setExp(4.0);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 7, "OpenSimplexSphere"));
 

@@ -32,8 +32,12 @@ The weight value must range from 0.0 to 1.0.
 Class `OpenSimplexPlane` generates plane terrains. The shape of the grid can be controlled by setting a resolution value with `setResolution`.
 A lower resolution generates a more squared shape.
 
+![plane img](/img/plane.png)
+
 ### OpenSimplexSphere
 Class `OpenSimplexSphere` generates terrains in sphere shape like planet. The resolution of the sphere is controlled by its `size` parameter.
+
+![sphere img](/img/sphere.png)
 
 ## How to use
 ```java
