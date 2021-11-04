@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.outofbound.opensimplexterrainlib.Color;
 import com.outofbound.opensimplexterrainlib.OpenSimplexPlane;
 import com.outofbound.opensimplexterrainlib.OpenSimplexSphere;
 import com.outofbound.opensimplexterrainlib.OpenSimplexTerrain;
@@ -25,10 +26,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        exportOpenSimplexSphere();
         exportOpenSimplexPlane();
+        //exportOpenSimplexSphere();
 
         sendEmail();
+    }
+
+    private void exportOpenSimplexPlane(){
+        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
+
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 0, "OpenSimplexPlane"));
+        openSimplexPlane.setOct1(0.8f);
+        openSimplexPlane.setOct4(0.3f);
+        openSimplexPlane.setOct16(0.1f);
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 1, "OpenSimplexPlane"));
+        openSimplexPlane.setSeed(43);
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 2, "OpenSimplexPlane"));
+        openSimplexPlane.setOct1(0.3f);
+        openSimplexPlane.setOct4(0.6f);
+        openSimplexPlane.setOct16(0.5f);
+        openSimplexPlane.setSeed(61);
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 3, "OpenSimplexPlane"));
+        openSimplexPlane.setExp(4.0);
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 4, "OpenSimplexPlane"));
+        openSimplexPlane.setSize(64);
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 5, "OpenSimplexPlane"));
+        openSimplexPlane.setResolution(16f);
+        openSimplexPlane.create();
+        files.add(export(openSimplexPlane, 6, "OpenSimplexPlane"));
+
+        float[] vertices = openSimplexPlane.getVertices();
+        float[] normals = openSimplexPlane.getNormals();
+        int[] indices = openSimplexPlane.getIndices();
     }
 
     private void exportOpenSimplexSphere(){
@@ -77,49 +112,21 @@ public class MainActivity extends AppCompatActivity {
         int[] indices = openSimplexSphere.getIndices();
     }
 
-    private void exportOpenSimplexPlane(){
-        OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
-
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 0, "OpenSimplexPlane"));
-        openSimplexPlane.setOct1(0.8f);
-        openSimplexPlane.setOct4(0.3f);
-        openSimplexPlane.setOct16(0.1f);
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 1, "OpenSimplexPlane"));
-        openSimplexPlane.setSeed(43);
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 2, "OpenSimplexPlane"));
-        openSimplexPlane.setOct1(0.3f);
-        openSimplexPlane.setOct4(0.6f);
-        openSimplexPlane.setOct16(0.5f);
-        openSimplexPlane.setSeed(61);
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 3, "OpenSimplexPlane"));
-        openSimplexPlane.setExp(4.0);
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 4, "OpenSimplexPlane"));
-        openSimplexPlane.setSize(64);
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 5, "OpenSimplexPlane"));
-        openSimplexPlane.setResolution(16f);
-        openSimplexPlane.create();
-        files.add(export(openSimplexPlane, 6, "OpenSimplexPlane"));
-
-        float[] vertices = openSimplexPlane.getVertices();
-        float[] normals = openSimplexPlane.getNormals();
-        int[] indices = openSimplexPlane.getIndices();
-    }
-
     private File export(OpenSimplexTerrain openSimplexTerrain, int id, String basename){
-        File tmpFile = null;
         try {
-            tmpFile = File.createTempFile(basename+id, ".ply", getExternalCacheDir());
-            ExportPLY.write(openSimplexTerrain,false,tmpFile);
+            return ExportPLY.write(
+                    openSimplexTerrain.getVertices(),
+                    openSimplexTerrain.getNormals(),
+                    openSimplexTerrain.getColors(
+                            new Color(0x4db1db,0f,0f),
+                            new Color(0x35b537, 0f, 0.8f),
+                            new Color(0xffffff, 0.8f, 1f)),
+                    openSimplexTerrain.getIndices(),
+                    File.createTempFile(basename+id, ".ply", getExternalCacheDir()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return tmpFile;
+        return null;
     }
 
     private void sendEmail(){

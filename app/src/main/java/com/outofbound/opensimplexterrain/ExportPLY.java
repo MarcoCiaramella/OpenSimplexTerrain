@@ -1,6 +1,5 @@
 package com.outofbound.opensimplexterrain;
 
-import com.outofbound.opensimplexterrainlib.OpenSimplexTerrain;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,10 +8,10 @@ import java.util.Locale;
 
 class ExportPLY {
 
-    public static void write(OpenSimplexTerrain openSimplexTerrain, boolean color, File file) throws IOException {
+    public static File write(float[] vertices, float[] normals, byte[] colors, int[] indices, File file) throws IOException {
 
-        int numVertices = openSimplexTerrain.getVertices().length/3;
-        int elementFace = openSimplexTerrain.getIndices().length/3;
+        int numVertices = vertices.length/3;
+        int elementFace = indices.length/3;
 
         FileOutputStream os = new FileOutputStream(file);
 
@@ -29,7 +28,7 @@ class ExportPLY {
         String plyHeaderBottom = "element face %2$d\n" +
                 "property list uchar uint vertex_indices\n" +
                 "end_header\n";
-        if (color) {
+        if (colors != null) {
             String plyHeaderColors = "property uchar red\n" +
                     "property uchar green\n" +
                     "property uchar blue\n";
@@ -44,33 +43,35 @@ class ExportPLY {
         for (int i = 0; i < numVertices; i++){
             int v = i*3;
             int n = i*3;
-            int c = i*4;
-            stringBuilder.append(openSimplexTerrain.getVertices()[v]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getVertices()[v + 1]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getVertices()[v + 2]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getNormals()[n]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getNormals()[n + 1]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getNormals()[n + 2]);
-            /*if (color) {
+            int c = i*3;
+            stringBuilder.append(vertices[v]).append(" ");
+            stringBuilder.append(vertices[v + 1]).append(" ");
+            stringBuilder.append(vertices[v + 2]).append(" ");
+            stringBuilder.append(normals[n]).append(" ");
+            stringBuilder.append(normals[n + 1]).append(" ");
+            stringBuilder.append(normals[n + 2]);
+            if (colors != null) {
                 stringBuilder.append(" ");
-                stringBuilder.append((int) (openSimplexTerrain.getColors()[c] * 255)).append(" ");
-                stringBuilder.append((int) (openSimplexTerrain.getColors()[c + 1] * 255)).append(" ");
-                stringBuilder.append((int) (openSimplexTerrain.getColors()[c + 2] * 255));
-            }*/
+                stringBuilder.append(colors[c]).append(" ");
+                stringBuilder.append(colors[c + 1]).append(" ");
+                stringBuilder.append(colors[c + 2]);
+            }
             stringBuilder.append("\n");
         }
         writeString(os,stringBuilder.toString());
 
         stringBuilder = new StringBuilder();
-        for (int i = 0; i < openSimplexTerrain.getIndices().length; i += 3){
+        for (int i = 0; i < indices.length; i += 3){
             stringBuilder.append("3 ");
-            stringBuilder.append(openSimplexTerrain.getIndices()[i]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getIndices()[i + 1]).append(" ");
-            stringBuilder.append(openSimplexTerrain.getIndices()[i + 2]).append("\n");
+            stringBuilder.append(indices[i]).append(" ");
+            stringBuilder.append(indices[i + 1]).append(" ");
+            stringBuilder.append(indices[i + 2]).append("\n");
         }
         writeString(os,stringBuilder.toString());
 
         os.close();
+
+        return file;
     }
 
     private static void writeString(FileOutputStream os, String string) throws IOException {
