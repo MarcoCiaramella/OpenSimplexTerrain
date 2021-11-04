@@ -10,6 +10,7 @@ public abstract class OpenSimplexTerrain {
     protected Normal[] normals;
     protected float[] normalsArr;
     protected int[] indicesArr;
+    protected byte[] colorsArr;
     protected double[] noiseVal1;
     protected double[] noiseVal2;
     protected double[] noiseVal4;
@@ -179,6 +180,8 @@ public abstract class OpenSimplexTerrain {
     public float[] getNormals(){
         return normalsArr;
     }
+
+    public abstract byte[] getColors(Color... colors);
 
     private void toArray(Vertex[] vertices){
         int j = 0;

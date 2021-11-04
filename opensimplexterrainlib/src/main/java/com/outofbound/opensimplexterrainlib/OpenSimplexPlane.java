@@ -1,5 +1,7 @@
 package com.outofbound.opensimplexterrainlib;
 
+import java.util.Arrays;
+
 public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     private float resolution = 1000f;
@@ -132,6 +134,24 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     protected void initNoise32() {
         double[] grid = newGrid(size, size, 0, 0, 32.0 * (1.0/size));
         noiseVal32 = openSimplex2F.noise2(grid, grid.length/2);
+    }
+
+    @Override
+    public byte[] getColors(Color... colors) {
+        int index = 0;
+        colorsArr = new byte[vertices.length * 3];
+        Arrays.fill(colorsArr, (byte) 255);
+        for (Vertex vertex : vertices){
+            for (Color color : colors){
+                if (color.isInside(vertex.z)){
+                    colorsArr[index++] = color.r();
+                    colorsArr[index++] = color.g();
+                    colorsArr[index++] = color.b();
+                    break;
+                }
+            }
+        }
+        return colorsArr;
     }
 
     public void setResolution(float resolution) {

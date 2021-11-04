@@ -193,4 +193,9 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
         double[] grid = newGrid(0, 0, 0, 32.0);
         noiseVal32 = openSimplex2F.noise3Classic(grid, grid.length/3);
     }
+
+    @Override
+    public byte[] getColors(Color... colors) {
+        return new byte[0];
+    }
 }
