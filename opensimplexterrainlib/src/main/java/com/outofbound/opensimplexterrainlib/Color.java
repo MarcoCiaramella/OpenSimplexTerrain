@@ -16,15 +16,15 @@ public class Color {
         return value >= min && value <= max;
     }
 
-    public byte r(){
-        return (byte) android.graphics.Color.red(color);
+    public int r(){
+        return android.graphics.Color.red(color);
     }
 
-    public byte g(){
-        return (byte) android.graphics.Color.green(color);
+    public int g(){
+        return android.graphics.Color.green(color);
     }
 
-    public byte b(){
-        return (byte) android.graphics.Color.blue(color);
+    public int b(){
+        return android.graphics.Color.blue(color);
     }
 }

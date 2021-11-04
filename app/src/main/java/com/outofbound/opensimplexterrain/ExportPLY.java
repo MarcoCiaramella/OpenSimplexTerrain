@@ -8,9 +8,9 @@ import java.util.Locale;
 
 class ExportPLY {
 
-    public static File write(float[] vertices, float[] normals, byte[] colors, int[] indices, File file) throws IOException {
+    public static File write(float[] positions, float[] normals, int[] colors, int[] indices, File file) throws IOException {
 
-        int numVertices = vertices.length/3;
+        int numVertices = positions.length/3;
         int elementFace = indices.length/3;
 
         FileOutputStream os = new FileOutputStream(file);
@@ -44,9 +44,9 @@ class ExportPLY {
             int v = i*3;
             int n = i*3;
             int c = i*3;
-            stringBuilder.append(vertices[v]).append(" ");
-            stringBuilder.append(vertices[v + 1]).append(" ");
-            stringBuilder.append(vertices[v + 2]).append(" ");
+            stringBuilder.append(positions[v]).append(" ");
+            stringBuilder.append(positions[v + 1]).append(" ");
+            stringBuilder.append(positions[v + 2]).append(" ");
             stringBuilder.append(normals[n]).append(" ");
             stringBuilder.append(normals[n + 1]).append(" ");
             stringBuilder.append(normals[n + 2]);

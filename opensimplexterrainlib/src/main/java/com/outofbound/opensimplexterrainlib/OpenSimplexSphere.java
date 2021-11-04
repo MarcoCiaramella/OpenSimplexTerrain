@@ -48,7 +48,6 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     protected void initVertices() {
         newSphere();
         vertices = new Vertex[(size+1) * (size+1)];
-        verticesArr = new float[vertices.length*3];
         int j = 0;
         for (int i = 0; i < sphere.length; i += 3){
             vertices[j++] = new Vertex((float)sphere[i], (float)sphere[i+1], (float)sphere[i+2]);
@@ -69,8 +68,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initTriangles() {
-        indicesArr = new int[(size + size + (size-2)*size*2) * 3];
-        int r = 0;
+        int t = 0;
         // indices
         //  k1--k1+1
         //  |  / |
@@ -88,18 +86,16 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     int a = k1;
                     int b = k2;
                     int c = k1+1;
-                    indicesArr[r++] = a;
-                    indicesArr[r++] = b;
-                    indicesArr[r++] = c;
 
                     Triangle triangle = new Triangle();
                     triangle.v1 = vertices[a];
                     triangle.v2 = vertices[b];
                     triangle.v3 = vertices[c];
+                    triangles[t++] = triangle;
 
-                    normals[a].triangles.add(triangle);
-                    normals[b].triangles.add(triangle);
-                    normals[c].triangles.add(triangle);
+                    triangle.v1.normal.triangles.add(triangle);
+                    triangle.v2.normal.triangles.add(triangle);
+                    triangle.v3.normal.triangles.add(triangle);
 
                 }
 
@@ -108,29 +104,18 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     int a = k1+1;
                     int b = k2;
                     int c = k2+1;
-                    indicesArr[r++] = a;
-                    indicesArr[r++] = b;
-                    indicesArr[r++] = c;
 
                     Triangle triangle = new Triangle();
                     triangle.v1 = vertices[a];
                     triangle.v2 = vertices[b];
                     triangle.v3 = vertices[c];
+                    triangles[t++] = triangle;
 
-                    normals[a].triangles.add(triangle);
-                    normals[b].triangles.add(triangle);
-                    normals[c].triangles.add(triangle);
+                    triangle.v1.normal.triangles.add(triangle);
+                    triangle.v2.normal.triangles.add(triangle);
+                    triangle.v3.normal.triangles.add(triangle);
                 }
             }
-        }
-    }
-
-    @Override
-    protected void initNormals() {
-        normals = new Normal[(size+1) * (size+1)];
-        normalsArr = new float[normals.length*3];
-        for (int i = 0; i < normals.length; i++){
-            normals[i] = new Normal();
         }
     }
 
@@ -195,7 +180,9 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     }
 
     @Override
-    public byte[] getColors(Color... colors) {
-        return new byte[0];
+    public void calcColors() {
+        for (Triangle triangle : triangles){
+            triangle.calcColor();
+        }
     }
 }

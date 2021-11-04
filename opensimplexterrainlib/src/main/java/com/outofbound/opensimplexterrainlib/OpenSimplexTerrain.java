@@ -6,11 +6,6 @@ import com.jnoise.opensimplexnoiselib.OpenSimplex2F;
 public abstract class OpenSimplexTerrain {
 
     protected Vertex[] vertices;
-    protected float[] verticesArr;
-    protected Normal[] normals;
-    protected float[] normalsArr;
-    protected int[] indicesArr;
-    protected byte[] colorsArr;
     protected double[] noiseVal1;
     protected double[] noiseVal2;
     protected double[] noiseVal4;
@@ -35,11 +30,16 @@ public abstract class OpenSimplexTerrain {
     protected boolean initNoise8 = true;
     protected boolean initNoise16 = true;
     protected boolean initNoise32 = true;
+    protected Color[] colors;
+    protected Triangle[] triangles;
+    protected float[] vertexPositions;
+    protected float[] vertexNormals;
+    protected int[] vertexColors;
+    protected int[] indices;
 
     public void create(){
         if (initVertices) {
             initVertices();
-            initNormals();
             initTriangles();
             initVertices = false;
         }
@@ -73,8 +73,11 @@ public abstract class OpenSimplexTerrain {
         }
         calcNoise();
         calcNormals();
-        toArray(vertices);
-        toArray(normals);
+        calcColors();
+        loadVertexPositions();
+        loadVertexNormals();
+        loadVertexColors();
+        loadIndices();
     }
 
     public void setSeed(long seed) {
@@ -143,11 +146,9 @@ public abstract class OpenSimplexTerrain {
 
     protected abstract void initTriangles();
 
-    protected abstract void initNormals();
-
     private void calcNormals(){
-        for (Normal n : normals){
-            n.calc();
+        for (Vertex vertex : vertices){
+            vertex.normal.calc();
         }
     }
 
@@ -169,41 +170,87 @@ public abstract class OpenSimplexTerrain {
 
     protected abstract void initNoise32();
 
-    public float[] getVertices(){
-        return verticesArr;
-    }
-
-    public int[] getIndices(){
-        return indicesArr;
-    }
-
-    public float[] getNormals(){
-        return normalsArr;
-    }
-
-    public abstract byte[] getColors(Color... colors);
-
-    private void toArray(Vertex[] vertices){
-        int j = 0;
-        for (Vertex vertex : vertices) {
-            verticesArr[j++] = vertex.x;
-            verticesArr[j++] = vertex.y;
-            verticesArr[j++] = vertex.z;
-        }
-    }
-
-    private void toArray(Normal[] normals){
-        int j = 0;
-        for (Normal normal : normals) {
-            normalsArr[j++] = normal.x;
-            normalsArr[j++] = normal.y;
-            normalsArr[j++] = normal.z;
-        }
-    }
-
     private void checkOctValue(float value){
         if (value < 0f || value > 1f) {
             throw new IllegalArgumentException("oct value must be >= 0.0 and <= 1.0");
+        }
+    }
+
+    public void setColors(Color... colors){
+        this.colors = colors;
+    }
+
+    public abstract void calcColors();
+
+    public float[] getVertexPositions() {
+        return vertexPositions;
+    }
+
+    public float[] getVertexNormals() {
+        return vertexNormals;
+    }
+
+    public int[] getVertexColors() {
+        return vertexColors;
+    }
+
+    public int[] getIndices() {
+        return indices;
+    }
+
+    private void loadVertexPositions(){
+        vertexPositions = new float[triangles.length * 9];
+        int i = 0;
+        for (Triangle triangle : triangles){
+            vertexPositions[i++] = triangle.v1.x;
+            vertexPositions[i++] = triangle.v1.y;
+            vertexPositions[i++] = triangle.v1.z;
+            vertexPositions[i++] = triangle.v2.x;
+            vertexPositions[i++] = triangle.v2.y;
+            vertexPositions[i++] = triangle.v2.z;
+            vertexPositions[i++] = triangle.v3.x;
+            vertexPositions[i++] = triangle.v3.y;
+            vertexPositions[i++] = triangle.v3.z;
+        }
+    }
+
+    private void loadVertexNormals(){
+        vertexNormals = new float[triangles.length * 9];
+        int i = 0;
+        for (Triangle triangle : triangles){
+            vertexNormals[i++] = triangle.v1.normal.x;
+            vertexNormals[i++] = triangle.v1.normal.y;
+            vertexNormals[i++] = triangle.v1.normal.z;
+            vertexNormals[i++] = triangle.v2.normal.x;
+            vertexNormals[i++] = triangle.v2.normal.y;
+            vertexNormals[i++] = triangle.v2.normal.z;
+            vertexNormals[i++] = triangle.v3.normal.x;
+            vertexNormals[i++] = triangle.v3.normal.y;
+            vertexNormals[i++] = triangle.v3.normal.z;
+        }
+    }
+
+    private void loadVertexColors(){
+        vertexColors = new int[triangles.length * 9];
+        int i = 0;
+        for (Triangle triangle : triangles){
+            vertexColors[i++] = triangle.v1.r;
+            vertexColors[i++] = triangle.v1.g;
+            vertexColors[i++] = triangle.v1.b;
+            vertexColors[i++] = triangle.v2.r;
+            vertexColors[i++] = triangle.v2.g;
+            vertexColors[i++] = triangle.v2.b;
+            vertexColors[i++] = triangle.v3.r;
+            vertexColors[i++] = triangle.v3.g;
+            vertexColors[i++] = triangle.v3.b;
+        }
+    }
+
+    private void loadIndices(){
+        indices = new int[triangles.length * 3];
+        int index = 1;
+        for (int i = 0; i < indices.length; i++){
+            indices[i] = index++;
         }
     }
 

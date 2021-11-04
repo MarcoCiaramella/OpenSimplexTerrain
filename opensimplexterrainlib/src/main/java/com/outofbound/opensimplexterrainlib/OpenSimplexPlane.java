@@ -1,6 +1,5 @@
 package com.outofbound.opensimplexterrainlib;
 
-import java.util.Arrays;
 
 public class OpenSimplexPlane extends OpenSimplexTerrain {
 
@@ -23,7 +22,6 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     @Override
     protected void initVertices() {
         vertices = new Vertex[size*size];
-        verticesArr = new float[vertices.length*3];
         int i = 0;
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -38,9 +36,9 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     @Override
     protected void initTriangles() {
-        indicesArr = new int[(size - 1) * (size - 1) * 2 *6];
         int w = size;
-        int r = 0;
+        int t = 0;
+        triangles = new Triangle[(size-1)*(size-1)*2];
         for (int j = 0; j < size-1; j++) {
             for (int i = 0; i < size-1; i++) {
                 int q = j*w + i;
@@ -58,28 +56,15 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
                 t2.v1 = vertices[t2v1i];
                 t2.v2 = vertices[t2v2i];
                 t2.v3 = vertices[t2v3i];
-                indicesArr[r++] = t1v1i;
-                indicesArr[r++] = t1v2i;
-                indicesArr[r++] = t1v3i;
-                indicesArr[r++] = t2v1i;
-                indicesArr[r++] = t2v2i;
-                indicesArr[r++] = t2v3i;
-                normals[t1v1i].triangles.add(t1);
-                normals[t1v2i].triangles.add(t1);
-                normals[t1v3i].triangles.add(t1);
-                normals[t2v1i].triangles.add(t2);
-                normals[t2v2i].triangles.add(t2);
-                normals[t2v3i].triangles.add(t2);
+                t1.v1.normal.triangles.add(t1);
+                t1.v2.normal.triangles.add(t1);
+                t1.v3.normal.triangles.add(t1);
+                t2.v1.normal.triangles.add(t2);
+                t2.v2.normal.triangles.add(t2);
+                t2.v3.normal.triangles.add(t2);
+                triangles[t++] = t1;
+                triangles[t++] = t2;
             }
-        }
-    }
-
-    @Override
-    protected void initNormals() {
-        normals = new Normal[size*size];
-        normalsArr = new float[normals.length*3];
-        for (int i = 0; i < normals.length; i++){
-            normals[i] = new Normal();
         }
     }
 
@@ -137,21 +122,10 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     }
 
     @Override
-    public byte[] getColors(Color... colors) {
-        int index = 0;
-        colorsArr = new byte[vertices.length * 3];
-        Arrays.fill(colorsArr, (byte) 255);
-        for (Vertex vertex : vertices){
-            for (Color color : colors){
-                if (color.isInside(vertex.z)){
-                    colorsArr[index++] = color.r();
-                    colorsArr[index++] = color.g();
-                    colorsArr[index++] = color.b();
-                    break;
-                }
-            }
+    public void calcColors() {
+        for (Triangle triangle : triangles){
+            triangle.calcColor();
         }
-        return colorsArr;
     }
 
     public void setResolution(float resolution) {

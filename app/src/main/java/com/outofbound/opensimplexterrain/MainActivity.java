@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void exportOpenSimplexPlane(){
         OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
+        openSimplexPlane.setColors(
+                new Color(0x4db1db,0f,0f),
+                new Color(0x35b537, 0f, 0.8f),
+                new Color(0xffffff, 0.8f, 1f)
+        );
 
         openSimplexPlane.create();
         files.add(export(openSimplexPlane, 0, "OpenSimplexPlane"));
@@ -61,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
         openSimplexPlane.create();
         files.add(export(openSimplexPlane, 6, "OpenSimplexPlane"));
 
-        float[] vertices = openSimplexPlane.getVertices();
-        float[] normals = openSimplexPlane.getNormals();
+        float[] vertexPositions = openSimplexPlane.getVertexPositions();
+        float[] vertexNormals = openSimplexPlane.getVertexNormals();
         int[] indices = openSimplexPlane.getIndices();
     }
 
     private void exportOpenSimplexSphere(){
         OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(16);
+        openSimplexSphere.setColors(
+                new Color(0x4db1db,0f,0f),
+                new Color(0x35b537, 0f, 0.8f),
+                new Color(0xffffff, 0.8f, 1f)
+        );
 
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 0, "OpenSimplexSphere"));
@@ -107,20 +117,17 @@ public class MainActivity extends AppCompatActivity {
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 7, "OpenSimplexSphere"));
 
-        float[] vertices = openSimplexSphere.getVertices();
-        float[] normals = openSimplexSphere.getNormals();
+        float[] vertexPositions = openSimplexSphere.getVertexPositions();
+        float[] vertexNormals = openSimplexSphere.getVertexNormals();
         int[] indices = openSimplexSphere.getIndices();
     }
 
     private File export(OpenSimplexTerrain openSimplexTerrain, int id, String basename){
         try {
             return ExportPLY.write(
-                    openSimplexTerrain.getVertices(),
-                    openSimplexTerrain.getNormals(),
-                    openSimplexTerrain.getColors(
-                            new Color(0x4db1db,0f,0f),
-                            new Color(0x35b537, 0f, 0.8f),
-                            new Color(0xffffff, 0.8f, 1f)),
+                    openSimplexTerrain.getVertexPositions(),
+                    openSimplexTerrain.getVertexNormals(),
+                    openSimplexTerrain.getVertexColors(),
                     openSimplexTerrain.getIndices(),
                     File.createTempFile(basename+id, ".ply", getExternalCacheDir()));
         } catch (IOException e) {
