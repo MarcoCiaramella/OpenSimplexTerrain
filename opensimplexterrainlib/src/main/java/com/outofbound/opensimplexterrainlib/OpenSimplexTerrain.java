@@ -248,9 +248,8 @@ public abstract class OpenSimplexTerrain {
 
     private void loadIndices(){
         indices = new int[triangles.length * 3];
-        int index = 1;
         for (int i = 0; i < indices.length; i++){
-            indices[i] = index++;
+            indices[i] = i;
         }
     }
 
