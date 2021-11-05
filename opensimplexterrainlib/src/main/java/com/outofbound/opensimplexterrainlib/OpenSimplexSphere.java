@@ -182,7 +182,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     @Override
     public void calcColors() {
         for (Triangle triangle : triangles){
-            triangle.calcColor();
+            //triangle.calcColor();
         }
     }
 }
