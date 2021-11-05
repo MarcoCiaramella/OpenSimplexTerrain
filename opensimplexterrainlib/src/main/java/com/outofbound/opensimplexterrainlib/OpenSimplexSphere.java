@@ -88,14 +88,14 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     int c = k1+1;
 
                     Triangle triangle = new Triangle();
-                    triangle.v1 = vertices[a];
-                    triangle.v2 = vertices[b];
-                    triangle.v3 = vertices[c];
+                    triangle.v1 = new Vertex(vertices[a]);
+                    triangle.v2 = new Vertex(vertices[b]);
+                    triangle.v3 = new Vertex(vertices[c]);
                     triangles[t++] = triangle;
 
-                    triangle.v1.normal.triangles.add(triangle);
-                    triangle.v2.normal.triangles.add(triangle);
-                    triangle.v3.normal.triangles.add(triangle);
+                    vertices[a].normal.triangles.add(triangle);
+                    vertices[b].normal.triangles.add(triangle);
+                    vertices[c].normal.triangles.add(triangle);
 
                 }
 
@@ -106,14 +106,14 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     int c = k2+1;
 
                     Triangle triangle = new Triangle();
-                    triangle.v1 = vertices[a];
-                    triangle.v2 = vertices[b];
-                    triangle.v3 = vertices[c];
+                    triangle.v1 = new Vertex(vertices[a]);
+                    triangle.v2 = new Vertex(vertices[b]);
+                    triangle.v3 = new Vertex(vertices[c]);
                     triangles[t++] = triangle;
 
-                    triangle.v1.normal.triangles.add(triangle);
-                    triangle.v2.normal.triangles.add(triangle);
-                    triangle.v3.normal.triangles.add(triangle);
+                    vertices[a].normal.triangles.add(triangle);
+                    vertices[b].normal.triangles.add(triangle);
+                    vertices[c].normal.triangles.add(triangle);
                 }
             }
         }
