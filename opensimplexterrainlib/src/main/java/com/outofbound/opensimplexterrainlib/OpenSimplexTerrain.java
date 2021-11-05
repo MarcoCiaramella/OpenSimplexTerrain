@@ -40,7 +40,6 @@ public abstract class OpenSimplexTerrain {
     public void create(){
         if (initVertices) {
             initVertices();
-            initTriangles();
             initVertices = false;
         }
         if (initNoise) {
@@ -73,6 +72,7 @@ public abstract class OpenSimplexTerrain {
         }
         calcNoise();
         calcNormals();
+        initTriangles();
         calcColors();
         loadVertexPositions();
         loadVertexNormals();
