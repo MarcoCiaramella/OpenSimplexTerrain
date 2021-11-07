@@ -101,14 +101,14 @@ public class MainActivity extends AppCompatActivity {
         openSimplexSphere.setOct1(0.5f);
         openSimplexSphere.setOct2(0.2f);
         openSimplexSphere.setOct4(0.1f);
-        openSimplexSphere.setSize(256);
+        openSimplexSphere.setSize(64);
         openSimplexSphere.setExp(4.0);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 5, "OpenSimplexSphere"));
         openSimplexSphere.setSize(8);
         openSimplexSphere.create();
         files.add(export(openSimplexSphere, 6, "OpenSimplexSphere"));
-        openSimplexSphere.setSize(512);
+        openSimplexSphere.setSize(128);
         openSimplexSphere.setOct1(0.8f);
         openSimplexSphere.setOct2(0.5f);
         openSimplexSphere.setOct4(0.2f);
