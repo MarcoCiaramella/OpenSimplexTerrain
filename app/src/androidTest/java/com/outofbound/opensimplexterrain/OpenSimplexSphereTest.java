@@ -31,8 +31,8 @@ public class OpenSimplexSphereTest {
     public void testVertices(){
         OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(16);
         openSimplexSphere.create();
-        for (int i = 0; i < openSimplexSphere.getVertices().length; i++){
-            assertTrue(""+openSimplexSphere.getVertices()[i],openSimplexSphere.getVertices()[i] >= -1.5 && openSimplexSphere.getVertices()[i] <= 1.5);
+        for (int i = 0; i < openSimplexSphere.getVertexPositions().length; i++){
+            assertTrue(""+openSimplexSphere.getVertexPositions()[i],openSimplexSphere.getVertexPositions()[i] >= -1.5 && openSimplexSphere.getVertexPositions()[i] <= 1.5);
         }
     }
 }

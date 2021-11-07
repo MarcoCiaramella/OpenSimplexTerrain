@@ -36,10 +36,10 @@ public class OpenSimplexPlaneTest {
         openSimplexPlane.setExp(4.0);
         openSimplexPlane.setOct1(1f);
         openSimplexPlane.create();
-        for (int i = 0; i < openSimplexPlane.getVertices().length; i += 3){
-            assertTrue(""+openSimplexPlane.getVertices()[i],openSimplexPlane.getVertices()[i] >= -0.5 && openSimplexPlane.getVertices()[i] <= 0.5);
-            assertTrue(""+openSimplexPlane.getVertices()[i+1],openSimplexPlane.getVertices()[i+1] >= -0.5 && openSimplexPlane.getVertices()[i+1] <= 0.5);
-            assertTrue(""+openSimplexPlane.getVertices()[i+2],openSimplexPlane.getVertices()[i+2] >= 0.0 && openSimplexPlane.getVertices()[i+2] <= 1.0);
+        for (int i = 0; i < openSimplexPlane.getVertexPositions().length; i += 3){
+            assertTrue(""+openSimplexPlane.getVertexPositions()[i],openSimplexPlane.getVertexPositions()[i] >= -0.5 && openSimplexPlane.getVertexPositions()[i] <= 0.5);
+            assertTrue(""+openSimplexPlane.getVertexPositions()[i+1],openSimplexPlane.getVertexPositions()[i+1] >= -0.5 && openSimplexPlane.getVertexPositions()[i+1] <= 0.5);
+            assertTrue(""+openSimplexPlane.getVertexPositions()[i+2],openSimplexPlane.getVertexPositions()[i+2] >= 0.0 && openSimplexPlane.getVertexPositions()[i+2] <= 1.0);
         }
     }
 }
