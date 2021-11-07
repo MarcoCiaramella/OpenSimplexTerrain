@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         exportOpenSimplexPlane();
-        //exportOpenSimplexSphere();
+        exportOpenSimplexSphere();
 
         sendEmail();
     }

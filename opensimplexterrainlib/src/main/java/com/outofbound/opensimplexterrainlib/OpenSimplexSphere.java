@@ -68,6 +68,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
 
     @Override
     protected void initTriangles() {
+        triangles = new Triangle[size+size+(size-2)*size*2];
         int t = 0;
         // indices
         //  k1--k1+1
@@ -182,7 +183,13 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     @Override
     public void calcColors() {
         for (Triangle triangle : triangles){
-            //triangle.calcColor();
+            Vertex position = triangle.getPosition();
+            for (Color color : colors){
+                if (color.isInside(position.length() - radius)){
+                    triangle.setColor(color.r(), color.g(), color.b());
+                    break;
+                }
+            }
         }
     }
 }
