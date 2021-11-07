@@ -73,10 +73,14 @@ public abstract class OpenSimplexTerrain {
         calcNoise();
         calcNormals();
         initTriangles();
-        calcColors();
+        if (colors != null) {
+            calcColors();
+        }
         loadVertexPositions();
         loadVertexNormals();
-        loadVertexColors();
+        if (colors != null) {
+            loadVertexColors();
+        }
         loadIndices();
     }
 
