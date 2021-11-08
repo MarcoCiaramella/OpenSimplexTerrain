@@ -20,8 +20,8 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     }
 
     @Override
-    protected void initVertices() {
-        vertices = new Vertex[size*size];
+    protected void initPositions() {
+        positions = new Vector3f[size*size];
         int i = 0;
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -29,7 +29,7 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
                 float y01 = y/(float)size;
                 x01 = ((int)(x01 * resolution)) / resolution;
                 y01 = ((int)(y01 * resolution)) / resolution;
-                vertices[i++] = new Vertex(x01-0.5f,y01-0.5f,0);
+                positions[i++] = new Vector3f(x01-0.5f,y01-0.5f,0);
             }
         }
     }
@@ -49,25 +49,25 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
                 int t2v2i = w + q;
                 int t2v3i = q + 1;
                 Triangle t1 = new Triangle();
-                Vertex v1 = vertices[t1v1i];
-                Vertex v2 = vertices[t1v2i];
-                Vertex v3 = vertices[t1v3i];
-                t1.v1 = new Vertex(v1);
-                t1.v2 = new Vertex(v2);
-                t1.v3 = new Vertex(v3);
-                v1.getNormal().triangles.add(t1);
-                v2.getNormal().triangles.add(t1);
-                v3.getNormal().triangles.add(t1);
+                Vector3f p1 = positions[t1v1i];
+                Vector3f p2 = positions[t1v2i];
+                Vector3f p3 = positions[t1v3i];
+                t1.v1 = new Vertex(p1);
+                t1.v2 = new Vertex(p2);
+                t1.v3 = new Vertex(p3);
+                t1.v1.getNormal().addTriangle(t1);
+                t1.v2.getNormal().addTriangle(t1);
+                t1.v3.getNormal().addTriangle(t1);
                 Triangle t2 = new Triangle();
-                v1 = vertices[t2v1i];
-                v2 = vertices[t2v2i];
-                v3 = vertices[t2v3i];
-                t2.v1 = new Vertex(v1);
-                t2.v2 = new Vertex(v2);
-                t2.v3 = new Vertex(v3);
-                v1.getNormal().triangles.add(t2);
-                v2.getNormal().triangles.add(t2);
-                v3.getNormal().triangles.add(t2);
+                p1 = positions[t2v1i];
+                p2 = positions[t2v2i];
+                p3 = positions[t2v3i];
+                t2.v1 = new Vertex(p1);
+                t2.v2 = new Vertex(p2);
+                t2.v3 = new Vertex(p3);
+                t2.v1.getNormal().addTriangle(t2);
+                t2.v2.getNormal().addTriangle(t2);
+                t2.v3.getNormal().addTriangle(t2);
                 triangles[t++] = t1;
                 triangles[t++] = t2;
             }
@@ -76,7 +76,7 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     @Override
     protected void calcNoise() {
-        for (int i = 0; i < vertices.length; i++) {
+        for (int i = 0; i < positions.length; i++) {
             double z01 = (oct1 * noiseVal1[i]
                     + oct2 * noiseVal2[i]
                     + oct4 * noiseVal4[i]
@@ -87,7 +87,7 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
             z01 /= (oct1 + oct2 + oct4 + oct8 + oct16 + oct32);
             z01 = Math.pow(z01, exp);
             z01 = ((int)(z01* resolution)) / resolution;
-            vertices[i].z = (float)z01;
+            positions[i].z = (float)z01;
         }
     }
 

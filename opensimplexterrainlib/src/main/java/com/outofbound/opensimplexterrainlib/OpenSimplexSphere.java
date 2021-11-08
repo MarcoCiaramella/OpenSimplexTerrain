@@ -45,12 +45,12 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     }
 
     @Override
-    protected void initVertices() {
+    protected void initPositions() {
         newSphere();
-        vertices = new Vertex[(size+1) * (size+1)];
+        positions = new Vector3f[(size+1) * (size+1)];
         int j = 0;
         for (int i = 0; i < sphere.length; i += 3){
-            vertices[j++] = new Vertex((float)sphere[i], (float)sphere[i+1], (float)sphere[i+2]);
+            positions[j++] = new Vector3f((float)sphere[i], (float)sphere[i+1], (float)sphere[i+2]);
         }
     }
 
@@ -89,14 +89,14 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     int c = k1+1;
 
                     Triangle triangle = new Triangle();
-                    triangle.v1 = new Vertex(vertices[a]);
-                    triangle.v2 = new Vertex(vertices[b]);
-                    triangle.v3 = new Vertex(vertices[c]);
+                    triangle.v1 = new Vertex(positions[a]);
+                    triangle.v2 = new Vertex(positions[b]);
+                    triangle.v3 = new Vertex(positions[c]);
                     triangles[t++] = triangle;
 
-                    vertices[a].getNormal().triangles.add(triangle);
-                    vertices[b].getNormal().triangles.add(triangle);
-                    vertices[c].getNormal().triangles.add(triangle);
+                    triangle.v1.getNormal().addTriangle(triangle);
+                    triangle.v2.getNormal().addTriangle(triangle);
+                    triangle.v3.getNormal().addTriangle(triangle);
 
                 }
 
@@ -107,14 +107,14 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     int c = k2+1;
 
                     Triangle triangle = new Triangle();
-                    triangle.v1 = new Vertex(vertices[a]);
-                    triangle.v2 = new Vertex(vertices[b]);
-                    triangle.v3 = new Vertex(vertices[c]);
+                    triangle.v1 = new Vertex(positions[a]);
+                    triangle.v2 = new Vertex(positions[b]);
+                    triangle.v3 = new Vertex(positions[c]);
                     triangles[t++] = triangle;
 
-                    vertices[a].getNormal().triangles.add(triangle);
-                    vertices[b].getNormal().triangles.add(triangle);
-                    vertices[c].getNormal().triangles.add(triangle);
+                    triangle.v1.getNormal().addTriangle(triangle);
+                    triangle.v2.getNormal().addTriangle(triangle);
+                    triangle.v3.getNormal().addTriangle(triangle);
                 }
             }
         }
@@ -123,7 +123,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     @Override
     protected void calcNoise() {
         float lengthInv = 1f / radius;
-        for (int i = 0; i < vertices.length; i++) {
+        for (int i = 0; i < positions.length; i++) {
             double noise = (oct1 * noiseVal1[i]
                     + oct2 * noiseVal2[i]
                     + oct4 * noiseVal4[i]
@@ -135,12 +135,12 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
             noise = Math.pow(noise, exp);
 
             float noiseF = (float)noise;
-            float nx = vertices[i].x * lengthInv;
-            float ny = vertices[i].y * lengthInv;
-            float nz = vertices[i].z * lengthInv;
-            vertices[i].x = vertices[i].x + nx*noiseF;
-            vertices[i].y = vertices[i].y + ny*noiseF;
-            vertices[i].z = vertices[i].z + nz*noiseF;
+            float nx = positions[i].x * lengthInv;
+            float ny = positions[i].y * lengthInv;
+            float nz = positions[i].z * lengthInv;
+            positions[i].x = positions[i].x + nx*noiseF;
+            positions[i].y = positions[i].y + ny*noiseF;
+            positions[i].z = positions[i].z + nz*noiseF;
         }
     }
 

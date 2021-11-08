@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 class Normal extends Vector3f {
 
-    public ArrayList<Triangle> triangles = new ArrayList<>();
+    private final ArrayList<Triangle> triangles = new ArrayList<>();
 
     public Normal() {
         super(0,0,0);
@@ -22,5 +22,9 @@ class Normal extends Vector3f {
             this.add(t.calcNormal());
         }
         this.normalize();
+    }
+
+    public void addTriangle(Triangle triangle){
+        triangles.add(triangle);
     }
 }

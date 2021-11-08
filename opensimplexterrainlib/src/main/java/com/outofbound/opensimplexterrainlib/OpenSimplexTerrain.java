@@ -5,7 +5,7 @@ import com.jnoise.opensimplexnoiselib.OpenSimplex2F;
 
 public abstract class OpenSimplexTerrain {
 
-    protected Vertex[] vertices;
+    protected Vector3f[] positions;
     protected double[] noiseVal1;
     protected double[] noiseVal2;
     protected double[] noiseVal4;
@@ -39,7 +39,7 @@ public abstract class OpenSimplexTerrain {
 
     public void create(){
         if (initVertices) {
-            initVertices();
+            initPositions();
             initVertices = false;
         }
         if (initNoise) {
@@ -146,13 +146,15 @@ public abstract class OpenSimplexTerrain {
         initNoise32 = true;
     }
 
-    protected abstract void initVertices();
+    protected abstract void initPositions();
 
     protected abstract void initTriangles();
 
     private void calcNormals(){
-        for (Vertex vertex : vertices){
-            vertex.getNormal().calc();
+        for (Triangle triangle : triangles){
+            triangle.v1.getNormal().calc();
+            triangle.v2.getNormal().calc();
+            triangle.v3.getNormal().calc();
         }
     }
 

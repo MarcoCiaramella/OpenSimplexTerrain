@@ -5,14 +5,9 @@ class Vertex extends Vector3f {
     private final Normal normal;
     private int r,g,b;
 
-    public Vertex(float x, float y, float z) {
-        super(x, y, z);
+    public Vertex(Vector3f position) {
+        super(position.x, position.y, position.z);
         normal = new Normal();
-    }
-
-    public Vertex(Vertex vertex){
-        super(vertex.x, vertex.y, vertex.z);
-        normal = vertex.normal;
     }
 
     public Normal getNormal() {
