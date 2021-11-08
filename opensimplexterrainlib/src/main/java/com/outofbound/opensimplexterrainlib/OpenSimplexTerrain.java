@@ -71,8 +71,8 @@ public abstract class OpenSimplexTerrain {
             initNoise32 = false;
         }
         calcNoise();
-        calcNormals();
         initTriangles();
+        calcNormals();
         if (colors != null) {
             calcColors();
         }
@@ -152,7 +152,7 @@ public abstract class OpenSimplexTerrain {
 
     private void calcNormals(){
         for (Vertex vertex : vertices){
-            vertex.normal.calc();
+            vertex.getNormal().calc();
         }
     }
 
@@ -222,15 +222,15 @@ public abstract class OpenSimplexTerrain {
         vertexNormals = new float[triangles.length * 9];
         int i = 0;
         for (Triangle triangle : triangles){
-            vertexNormals[i++] = triangle.v1.normal.x;
-            vertexNormals[i++] = triangle.v1.normal.y;
-            vertexNormals[i++] = triangle.v1.normal.z;
-            vertexNormals[i++] = triangle.v2.normal.x;
-            vertexNormals[i++] = triangle.v2.normal.y;
-            vertexNormals[i++] = triangle.v2.normal.z;
-            vertexNormals[i++] = triangle.v3.normal.x;
-            vertexNormals[i++] = triangle.v3.normal.y;
-            vertexNormals[i++] = triangle.v3.normal.z;
+            vertexNormals[i++] = triangle.v1.getNormal().x;
+            vertexNormals[i++] = triangle.v1.getNormal().y;
+            vertexNormals[i++] = triangle.v1.getNormal().z;
+            vertexNormals[i++] = triangle.v2.getNormal().x;
+            vertexNormals[i++] = triangle.v2.getNormal().y;
+            vertexNormals[i++] = triangle.v2.getNormal().z;
+            vertexNormals[i++] = triangle.v3.getNormal().x;
+            vertexNormals[i++] = triangle.v3.getNormal().y;
+            vertexNormals[i++] = triangle.v3.getNormal().z;
         }
     }
 
@@ -238,15 +238,15 @@ public abstract class OpenSimplexTerrain {
         vertexColors = new int[triangles.length * 9];
         int i = 0;
         for (Triangle triangle : triangles){
-            vertexColors[i++] = triangle.v1.r;
-            vertexColors[i++] = triangle.v1.g;
-            vertexColors[i++] = triangle.v1.b;
-            vertexColors[i++] = triangle.v2.r;
-            vertexColors[i++] = triangle.v2.g;
-            vertexColors[i++] = triangle.v2.b;
-            vertexColors[i++] = triangle.v3.r;
-            vertexColors[i++] = triangle.v3.g;
-            vertexColors[i++] = triangle.v3.b;
+            vertexColors[i++] = triangle.v1.r();
+            vertexColors[i++] = triangle.v1.g();
+            vertexColors[i++] = triangle.v1.b();
+            vertexColors[i++] = triangle.v2.r();
+            vertexColors[i++] = triangle.v2.g();
+            vertexColors[i++] = triangle.v2.b();
+            vertexColors[i++] = triangle.v3.r();
+            vertexColors[i++] = triangle.v3.g();
+            vertexColors[i++] = triangle.v3.b();
         }
     }
 

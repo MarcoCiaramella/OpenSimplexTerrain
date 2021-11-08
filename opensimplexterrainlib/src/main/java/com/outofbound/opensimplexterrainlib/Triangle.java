@@ -18,15 +18,9 @@ class Triangle {
     }
 
     public void setColor(int r, int g, int b){
-        v1.r = r;
-        v1.g = g;
-        v1.b = b;
-        v2.r = r;
-        v2.g = g;
-        v2.b = b;
-        v3.r = r;
-        v3.g = g;
-        v3.b = b;
+        v1.setRGB(r,g,b);
+        v2.setRGB(r,g,b);
+        v3.setRGB(r,g,b);
     }
 
     public Vector3f getPosition(){

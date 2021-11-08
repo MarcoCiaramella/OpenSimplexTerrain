@@ -94,9 +94,9 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     triangle.v3 = new Vertex(vertices[c]);
                     triangles[t++] = triangle;
 
-                    vertices[a].normal.triangles.add(triangle);
-                    vertices[b].normal.triangles.add(triangle);
-                    vertices[c].normal.triangles.add(triangle);
+                    vertices[a].getNormal().triangles.add(triangle);
+                    vertices[b].getNormal().triangles.add(triangle);
+                    vertices[c].getNormal().triangles.add(triangle);
 
                 }
 
@@ -112,9 +112,9 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
                     triangle.v3 = new Vertex(vertices[c]);
                     triangles[t++] = triangle;
 
-                    vertices[a].normal.triangles.add(triangle);
-                    vertices[b].normal.triangles.add(triangle);
-                    vertices[c].normal.triangles.add(triangle);
+                    vertices[a].getNormal().triangles.add(triangle);
+                    vertices[b].getNormal().triangles.add(triangle);
+                    vertices[c].getNormal().triangles.add(triangle);
                 }
             }
         }

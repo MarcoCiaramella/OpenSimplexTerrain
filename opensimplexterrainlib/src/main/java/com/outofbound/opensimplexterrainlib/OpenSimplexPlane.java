@@ -55,9 +55,9 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
                 t1.v1 = new Vertex(v1);
                 t1.v2 = new Vertex(v2);
                 t1.v3 = new Vertex(v3);
-                v1.normal.triangles.add(t1);
-                v2.normal.triangles.add(t1);
-                v3.normal.triangles.add(t1);
+                v1.getNormal().triangles.add(t1);
+                v2.getNormal().triangles.add(t1);
+                v3.getNormal().triangles.add(t1);
                 Triangle t2 = new Triangle();
                 v1 = vertices[t2v1i];
                 v2 = vertices[t2v2i];
@@ -65,9 +65,9 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
                 t2.v1 = new Vertex(v1);
                 t2.v2 = new Vertex(v2);
                 t2.v3 = new Vertex(v3);
-                v1.normal.triangles.add(t2);
-                v2.normal.triangles.add(t2);
-                v3.normal.triangles.add(t2);
+                v1.getNormal().triangles.add(t2);
+                v2.getNormal().triangles.add(t2);
+                v3.getNormal().triangles.add(t2);
                 triangles[t++] = t1;
                 triangles[t++] = t2;
             }

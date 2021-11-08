@@ -10,7 +10,14 @@ class Normal extends Vector3f {
         super(0,0,0);
     }
 
+    private void reset(){
+        x = 0;
+        y = 0;
+        z = 0;
+    }
+
     public void calc(){
+        reset();
         for (Triangle t : triangles){
             this.add(t.calcNormal());
         }
