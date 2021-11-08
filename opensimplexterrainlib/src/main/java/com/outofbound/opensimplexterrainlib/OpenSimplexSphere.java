@@ -183,7 +183,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
     @Override
     public void calcColors() {
         for (Triangle triangle : triangles){
-            Vertex position = triangle.getPosition();
+            Vector3f position = triangle.getPosition();
             for (Color color : colors){
                 if (color.isInside(Math.max(position.length() - radius, 0f))){
                     triangle.setColor(color.r(), color.g(), color.b());

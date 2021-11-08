@@ -29,8 +29,8 @@ class Triangle {
         v3.b = b;
     }
 
-    public Vertex getPosition(){
-        Vertex position = new Vertex(0,0,0);
+    public Vector3f getPosition(){
+        Vector3f position = new Vector3f(0,0,0);
         position.x = (v1.x + v2.x + v3.x) / 3f;
         position.y = (v1.y + v2.y + v3.y) / 3f;
         position.z = (v1.z + v2.z + v3.z) / 3f;

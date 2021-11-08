@@ -130,7 +130,7 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
     @Override
     public void calcColors() {
         for (Triangle triangle : triangles){
-            Vertex position = triangle.getPosition();
+            Vector3f position = triangle.getPosition();
             for (Color color : colors){
                 if (color.isInside(position.z)){
                     triangle.setColor(color.r(), color.g(), color.b());
