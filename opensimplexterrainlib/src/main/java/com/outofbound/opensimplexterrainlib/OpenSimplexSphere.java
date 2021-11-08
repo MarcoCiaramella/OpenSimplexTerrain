@@ -185,7 +185,7 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
         for (Triangle triangle : triangles){
             Vertex position = triangle.getPosition();
             for (Color color : colors){
-                if (color.isInside(position.length() - radius)){
+                if (color.isInside(Math.max(position.length() - radius, 0f))){
                     triangle.setColor(color.r(), color.g(), color.b());
                     break;
                 }
