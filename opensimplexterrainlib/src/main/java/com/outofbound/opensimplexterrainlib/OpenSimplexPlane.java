@@ -142,6 +142,5 @@ public class OpenSimplexPlane extends OpenSimplexTerrain {
 
     public void setResolution(float resolution) {
         this.resolution = resolution;
-        initVertices = true;
     }
 }

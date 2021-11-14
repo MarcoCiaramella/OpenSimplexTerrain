@@ -138,9 +138,9 @@ public class OpenSimplexSphere extends OpenSimplexTerrain {
             float nx = positions[i].x * lengthInv;
             float ny = positions[i].y * lengthInv;
             float nz = positions[i].z * lengthInv;
-            positions[i].x = positions[i].x + nx*noiseF;
-            positions[i].y = positions[i].y + ny*noiseF;
-            positions[i].z = positions[i].z + nz*noiseF;
+            positions[i].x += nx*noiseF;
+            positions[i].y += ny*noiseF;
+            positions[i].z += nz*noiseF;
         }
     }
 

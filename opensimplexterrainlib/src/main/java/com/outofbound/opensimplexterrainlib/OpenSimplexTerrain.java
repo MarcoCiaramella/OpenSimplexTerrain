@@ -23,7 +23,6 @@ public abstract class OpenSimplexTerrain {
     protected double exp = 1;
     protected int size = 16;
     protected boolean initNoise = true;
-    protected boolean initVertices = true;
     protected boolean initNoise1 = true;
     protected boolean initNoise2 = true;
     protected boolean initNoise4 = true;
@@ -38,10 +37,7 @@ public abstract class OpenSimplexTerrain {
     protected int[] indices;
 
     public void create(){
-        if (initVertices) {
-            initPositions();
-            initVertices = false;
-        }
+        initPositions();
         if (initNoise) {
             initNoise();
             initNoise = false;
@@ -137,7 +133,6 @@ public abstract class OpenSimplexTerrain {
 
     public void setSize(int size) {
         this.size = size;
-        initVertices = true;
         initNoise1 = true;
         initNoise2 = true;
         initNoise4 = true;
