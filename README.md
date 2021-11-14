@@ -42,25 +42,36 @@ Class `OpenSimplexSphere` generates terrains in sphere shape like planet. The re
 ## How to use
 ```java
 OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
-openSimplexPlane.setSeed(43);
+openSimplexPlane.setColors(
+        new Color(0x4db1db,0f,0f),
+        new Color(0x35b537, 0f, 0.8f),
+        new Color(0xffffff, 0.8f, 1f)
+        );
 openSimplexPlane.setSize(64);
+openSimplexPlane.setSeed(43);
 openSimplexPlane.setOct1(0.8f);
 openSimplexPlane.setOct4(0.3f);
 openSimplexPlane.setOct16(0.1f);
 openSimplexPlane.setExp(4.0);
 openSimplexPlane.create();
-float[] vertices = openSimplexPlane.getVertices();
-float[] normals = openSimplexPlane.getNormals();
+float[] vertexPositions = openSimplexPlane.getVertexPositions();
+float[] vertexNormals = openSimplexPlane.getVertexNormals();
 int[] indices = openSimplexPlane.getIndices();
 
-OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(128);
+OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(16);
+openSimplexSphere.setColors(
+        new Color(0x4db1db,0f,0f),
+        new Color(0x35b537, 0f, 0.8f),
+        new Color(0xffffff, 0.8f, 1f)
+        );
+openSimplexSphere.setSize(128);
 openSimplexSphere.setSeed(43);
 openSimplexSphere.setOct1(0.8f);
-openSimplexSphere.setOct2(0.3f);
-openSimplexSphere.setOct8(0.1f);
+openSimplexSphere.setOct4(0.3f);
+openSimplexSphere.setOct16(0.1f);
 openSimplexSphere.setExp(4.0);
 openSimplexSphere.create();
-float[] vertices = openSimplexSphere.getVertices();
-float[] normals = openSimplexSphere.getNormals();
+float[] vertexPositions = openSimplexSphere.getVertexPositions();
+float[] vertexNormals = openSimplexSphere.getVertexNormals();
 int[] indices = openSimplexSphere.getIndices();
 ```
