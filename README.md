@@ -44,7 +44,9 @@ Class `OpenSimplexSphere` generates terrains in sphere shape like planet. The re
 OpenSimplexPlane openSimplexPlane = new OpenSimplexPlane();
 openSimplexPlane.setColors(
         new Color(0x4db1db,0f,0f),
-        new Color(0x35b537, 0f, 0.8f),
+        new Color(0x35b537, 0f, 0.5f),
+        new Color(0x6e4319, 0.5f, 0.7f),
+        new Color(0x828282, 0.7f, 0.8f),
         new Color(0xffffff, 0.8f, 1f)
         );
 openSimplexPlane.setSize(64);
@@ -61,7 +63,9 @@ int[] indices = openSimplexPlane.getIndices();
 OpenSimplexSphere openSimplexSphere = new OpenSimplexSphere(16);
 openSimplexSphere.setColors(
         new Color(0x4db1db,0f,0f),
-        new Color(0x35b537, 0f, 0.8f),
+        new Color(0x35b537, 0f, 0.5f),
+        new Color(0x6e4319, 0.5f, 0.7f),
+        new Color(0x828282, 0.7f, 0.8f),
         new Color(0xffffff, 0.8f, 1f)
         );
 openSimplexSphere.setSize(128);
